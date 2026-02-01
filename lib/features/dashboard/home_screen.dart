@@ -426,14 +426,14 @@ class _HomeScreenState extends State<HomeScreen> {
                           final firstName = userProvider.userName.split(' ').first;
                           return Text(
                             'Welcome, $firstName!',
-                            style: AppTypography.h3.copyWith(color: AppColors.textPrimary),
+                            style: AppTypography.h3.copyWith(color: isDark ? Colors.white : AppColors.textPrimary),
                           );
                         },
                       ),
                       const SizedBox(height: 8),
                       Text(
                         'Your Trusted Pathway to Global Opportunities',
-                        style: AppTypography.bodyLarge.copyWith(color: AppColors.textSecondary),
+                        style: AppTypography.bodyLarge.copyWith(color: isDark ? Colors.grey[400] : AppColors.textSecondary),
                       ),
                     ],
                   ),
@@ -672,7 +672,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 child: RichText(
                   text: TextSpan(
-                    style: AppTypography.bodyMedium.copyWith(color: AppColors.textPrimary),
+                    style: AppTypography.bodyMedium.copyWith(color: isDark ? Colors.white : AppColors.textPrimary),
                     children: [
                       TextSpan(
                         text: 'Quick Tips for Success: ',
@@ -1192,12 +1192,13 @@ class _QuickActionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(16),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: isDark ? AppColors.darkSurfaceElevated : Colors.white,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
@@ -1245,7 +1246,7 @@ class _QuickActionCard extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: AppTypography.labelMedium.copyWith(
                       fontWeight: FontWeight.w700,
-                      color: AppColors.textPrimary,
+                      color: isDark ? Colors.white : AppColors.textPrimary,
                       height: 1.2,
                     ),
                   ),
@@ -1274,13 +1275,15 @@ class _SimpleNewsItem extends StatelessWidget {
           title,
           style: AppTypography.labelMedium.copyWith(
             fontWeight: FontWeight.w600,
-            color: const Color(0xFF1E3A8A), // Dark blue like screenshot
+            color: Theme.of(context).brightness == Brightness.dark ? Colors.blue[200] : const Color(0xFF1E3A8A), // Dark blue like screenshot
           ),
         ),
         const SizedBox(height: 4),
         Text(
           time,
-          style: AppTypography.bodySmall,
+          style: AppTypography.bodySmall.copyWith(
+            color: Theme.of(context).brightness == Brightness.dark ? Colors.grey[400] : null
+          ),
         ),
       ],
     );
@@ -1423,6 +1426,7 @@ class _TopRatedCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),
@@ -1465,6 +1469,7 @@ class _TopRatedCard extends StatelessWidget {
                     name,
                     style: AppTypography.labelMedium.copyWith(
                       fontWeight: FontWeight.w600,
+                      color: Theme.of(context).brightness == Brightness.dark ? Colors.white : AppColors.textPrimary,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -1515,6 +1520,7 @@ class _FeaturedServiceImageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(12),
@@ -1548,6 +1554,7 @@ class _FeaturedServiceImageCard extends StatelessWidget {
             title,
             textAlign: TextAlign.center,
             style: AppTypography.caption.copyWith(
+              color: Theme.of(context).brightness == Brightness.dark ? Colors.white : AppColors.textPrimary,
               fontSize: 11,
               fontWeight: FontWeight.bold,
               height: 1.2,
@@ -1737,6 +1744,7 @@ class _StaticActionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
     return InkWell(
       onTap: onTap,
       borderRadius: BorderRadius.circular(16),

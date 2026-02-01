@@ -3,7 +3,8 @@
 
 class ApiConfig {
   // Base URL - change for production
-  static const String baseUrl = 'https://globaltrusthubbackend-production.up.railway.app';
+  // static const String baseUrl = 'https://globaltrusthubbackend-production.up.railway.app';
+  static const String baseUrl = 'http://127.0.0.1:8080';
   static const String apiVersion = '/api/v1';
   
   // Full API base path

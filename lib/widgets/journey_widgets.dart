@@ -91,7 +91,9 @@ class JourneyProgressWidget extends StatelessWidget {
                         milestone.title,
                         textAlign: TextAlign.center,
                         style: AppTypography.labelMedium.copyWith(
-                          color: (isCompleted || isCurrent) ? AppColors.textPrimary : AppColors.textSecondary,
+                          color: (isCompleted || isCurrent)
+                              ? (Theme.of(context).brightness == Brightness.dark ? Colors.white : AppColors.textPrimary)
+                              : (Theme.of(context).brightness == Brightness.dark ? Colors.grey[400] : AppColors.textSecondary),
                           fontWeight: (isCompleted || isCurrent) ? FontWeight.bold : FontWeight.normal,
                           fontSize: 12,
                         ),
