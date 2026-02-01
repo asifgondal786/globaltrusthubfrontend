@@ -124,6 +124,42 @@ class AuthService {
   Future<bool> isLoggedIn() async {
     return await _storage.isLoggedIn();
   }
+
+  /// Admin login
+  Future<AuthResponse> adminLogin({
+    required String email,
+    required String password,
+  }) async {
+    final response = await _api.post<Map<String, dynamic>>(
+      ApiConfig.adminLogin,
+      data: {
+        'email': email,
+        'password': password,
+      },
+    );
+
+    final authResponse = AuthResponse.fromJson(response);
+    
+    // Save tokens
+    await _storage.saveTokens(
+      accessToken: authResponse.accessToken,
+      refreshToken: authResponse.refreshToken,
+    );
+    
+    if (authResponse.user != null) {
+      await _storage.saveUserId(authResponse.user!['id'] ?? '');
+    }
+
+    return authResponse;
+  }
+
+  /// Resend verification email
+  Future<void> resendVerification(String email) async {
+    await _api.post(
+      ApiConfig.resendVerification,
+      data: {'email': email},
+    );
+  }
 }
 
 // Response Models

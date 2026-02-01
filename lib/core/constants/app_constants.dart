@@ -29,8 +29,9 @@ class AppConstants {
   static const double providerMonthlyFee = 10.0;
   static const double promotionMonthlyFee = 20.0;
 
-  // API Endpoints (placeholder for backend integration)
-  static const String apiBaseUrl = 'https://api.globaltrusthub.com/v1';
+  // API Endpoints - Use ApiConfig.apiBaseUrl for API calls
+  // This is kept for backward compatibility only
+  static const String apiBaseUrl = 'https://globaltrusthubbackend-production.up.railway.app/api/v1';
 
   // Storage Keys
   static const String keyAuthToken = 'auth_token';

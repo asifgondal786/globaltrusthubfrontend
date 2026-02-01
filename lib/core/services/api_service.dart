@@ -1,5 +1,7 @@
+/// Legacy API Service - Use ApiClient from core/api/api_client.dart instead
+@Deprecated('Use ApiClient from core/api/api_client.dart for all API calls')
 class ApiService {
-  final String baseUrl = 'https://api.globaltrusthub.com';
+  final String baseUrl = 'https://globaltrusthubbackend-production.up.railway.app';
 
   Future<dynamic> get(String endpoint) async {
     // efficient http get implementation
