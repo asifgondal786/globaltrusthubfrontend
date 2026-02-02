@@ -1,5 +1,6 @@
 /// API Configuration
 /// Base URLs and endpoint paths for GlobalTrustHub API
+library api_config;
 
 class ApiConfig {
   // Base URL - change for production

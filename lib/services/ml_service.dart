@@ -1,5 +1,6 @@
 /// ML Service
 /// Handles Machine Learning API calls for trust scores, fraud detection, and recommendations
+library ml_service;
 
 import 'package:global_trust_hub/core/api/api_client.dart';
 import 'package:global_trust_hub/core/api/api_config.dart';
@@ -171,9 +172,9 @@ class TrustScoreResponse {
       trustScore: (json['trust_score'] ?? 0).toDouble(),
       trustLevel: json['trust_level'] ?? 'unverified',
       breakdown: Map<String, double>.from(
-        (json['breakdown'] ?? {}).map((k, v) => MapEntry(k, (v as num).toDouble())),
+        (json['breakdown'] as Map<String, dynamic>? ?? {}).map((k, v) => MapEntry(k, (v as num).toDouble())),
       ),
-      improvementTips: List<String>.from(json['improvement_tips'] ?? []),
+      improvementTips: List<String>.from(json['improvement_tips'] as List? ?? []),
     );
   }
 }
@@ -195,11 +196,11 @@ class FraudCheckResponse {
 
   factory FraudCheckResponse.fromJson(Map<String, dynamic> json) {
     return FraudCheckResponse(
-      isSuspicious: json['is_suspicious'] ?? false,
-      confidence: (json['confidence'] ?? 0).toDouble(),
-      riskLevel: json['risk_level'] ?? 'low',
-      flags: List<String>.from(json['flags'] ?? []),
-      explanation: json['explanation'] ?? '',
+      isSuspicious: json['is_suspicious'] as bool? ?? false,
+      confidence: (json['confidence'] as num? ?? 0).toDouble(),
+      riskLevel: json['risk_level'] as String? ?? 'low',
+      flags: (json['flags'] as List? ?? []).map((e) => e as String).toList(),
+      explanation: json['explanation'] as String? ?? '',
     );
   }
 }
@@ -217,7 +218,7 @@ class RecommendationsResponse {
     return RecommendationsResponse(
       userId: json['user_id'] ?? '',
       recommendations: (json['recommendations'] as List? ?? [])
-          .map((r) => RecommendationItem.fromJson(r))
+          .map((r) => RecommendationItem.fromJson(r as Map<String, dynamic>))
           .toList(),
     );
   }
@@ -240,11 +241,11 @@ class RecommendationItem {
 
   factory RecommendationItem.fromJson(Map<String, dynamic> json) {
     return RecommendationItem(
-      id: json['id'] ?? '',
-      name: json['name'] ?? '',
-      category: json['category'] ?? '',
-      score: (json['score'] ?? 0).toDouble(),
-      reason: json['reason'] ?? '',
+      id: json['id'] as String? ?? '',
+      name: json['name'] as String? ?? '',
+      category: json['category'] as String? ?? '',
+      score: (json['score'] as num? ?? 0).toDouble(),
+      reason: json['reason'] as String? ?? '',
     );
   }
 }

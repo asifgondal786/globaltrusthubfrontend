@@ -1,5 +1,6 @@
 /// Auth Service
 /// Handles all authentication API calls
+library auth_service;
 
 import 'package:global_trust_hub/core/api/api_client.dart';
 import 'package:global_trust_hub/core/api/api_config.dart';

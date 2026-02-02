@@ -30,16 +30,16 @@ class Employer {
 
   factory Employer.fromJson(Map<String, dynamic> json) {
     return Employer(
-      id: json['id'] ?? '',
-      name: json['name'] ?? '',
-      logoUrl: json['logo_url'],
-      industry: json['industry'] ?? '',
-      companySize: json['company_size'] ?? '',
-      location: json['location'] ?? '',
-      website: json['website'],
-      verified: json['verified'] ?? false,
-      rating: json['rating']?.toDouble(),
-      reviewCount: json['review_count'] ?? 0,
+      id: json['id'] as String? ?? '',
+      name: json['name'] as String? ?? '',
+      logoUrl: json['logo_url'] as String?,
+      industry: json['industry'] as String? ?? '',
+      companySize: json['company_size'] as String? ?? '',
+      location: json['location'] as String? ?? '',
+      website: json['website'] as String?,
+      verified: json['verified'] as bool? ?? false,
+      rating: (json['rating'] as num?)?.toDouble(),
+      reviewCount: json['review_count'] as int? ?? 0,
     );
   }
 }
@@ -96,28 +96,28 @@ class Job {
 
   factory Job.fromJson(Map<String, dynamic> json) {
     return Job(
-      id: json['id'] ?? '',
-      title: json['title'] ?? '',
-      employer: Employer.fromJson(json['employer'] ?? {}),
-      location: json['location'] ?? '',
-      country: json['country'] ?? '',
-      salaryMin: json['salary_min'],
-      salaryMax: json['salary_max'],
-      salaryCurrency: json['salary_currency'] ?? 'USD',
-      salaryPeriod: json['salary_period'] ?? 'yearly',
-      jobType: json['job_type'] ?? 'full-time',
-      remote: json['remote'] ?? false,
-      category: json['category'] ?? '',
-      experienceLevel: json['experience_level'] ?? 'entry',
-      description: json['description'] ?? '',
-      requirements: List<String>.from(json['requirements'] ?? []),
-      benefits: List<String>.from(json['benefits'] ?? []),
-      postedDate: json['posted_date'] ?? '',
-      applicationDeadline: json['application_deadline'],
-      applicants: json['applicants'] ?? 0,
-      source: json['source'] ?? '',
-      applyUrl: json['apply_url'] ?? '',
-      isSponsored: json['is_sponsored'] ?? false,
+      id: json['id'] as String? ?? '',
+      title: json['title'] as String? ?? '',
+      employer: Employer.fromJson(json['employer'] as Map<String, dynamic>? ?? {}),
+      location: json['location'] as String? ?? '',
+      country: json['country'] as String? ?? '',
+      salaryMin: json['salary_min'] as int?,
+      salaryMax: json['salary_max'] as int?,
+      salaryCurrency: json['salary_currency'] as String? ?? 'USD',
+      salaryPeriod: json['salary_period'] as String? ?? 'yearly',
+      jobType: json['job_type'] as String? ?? '',
+      remote: json['remote'] as bool? ?? false,
+      category: json['category'] as String? ?? '',
+      experienceLevel: json['experience_level'] as String? ?? '',
+      description: json['description'] as String? ?? '',
+      requirements: (json['requirements'] as List? ?? []).map((e) => e as String).toList(),
+      benefits: (json['benefits'] as List? ?? []).map((e) => e as String).toList(),
+      postedDate: json['posted_date'] as String? ?? '',
+      applicationDeadline: json['application_deadline'] as String?,
+      applicants: json['applicants'] as int? ?? 0,
+      source: json['source'] as String? ?? '',
+      applyUrl: json['apply_url'] as String? ?? '',
+      isSponsored: json['is_sponsored'] as bool? ?? false,
     );
   }
 
@@ -196,9 +196,9 @@ class JobsResponse {
         .toList() ?? [];
     return JobsResponse(
       jobs: jobList,
-      total: json['total'] ?? 0,
-      page: json['page'] ?? 1,
-      pageSize: json['page_size'] ?? 10,
+      total: json['total'] as int? ?? 0,
+      page: json['page'] as int? ?? 1,
+      pageSize: json['page_size'] as int? ?? 10,
     );
   }
 }
@@ -211,7 +211,7 @@ class JobService {
     baseUrl: ApiConfig.baseUrl,
     connectTimeout: const Duration(seconds: 10),
     receiveTimeout: const Duration(seconds: 10),
-  ));
+  ),);
 
   Future<JobsResponse> getJobs({
     String? category,
@@ -235,8 +235,9 @@ class JobService {
       if (search != null) queryParams['search'] = search;
 
       final response = await _dio.get('/api/v1/jobs', queryParameters: queryParams);
-      debugPrint('✅ Jobs API: ${response.data['total']} jobs loaded');
-      return JobsResponse.fromJson(response.data);
+      final data = response.data as Map<String, dynamic>;
+      debugPrint('✅ Jobs API: ${data['total']} jobs loaded');
+      return JobsResponse.fromJson(data);
     } catch (e) {
       debugPrint('❌ Jobs API error: $e');
       rethrow;
@@ -246,7 +247,7 @@ class JobService {
   Future<Job> getJobDetails(String jobId) async {
     try {
       final response = await _dio.get('/api/v1/jobs/$jobId');
-      return Job.fromJson(response.data);
+      return Job.fromJson(response.data as Map<String, dynamic>);
     } catch (e) {
       debugPrint('❌ Job details API error: $e');
       rethrow;
@@ -256,7 +257,8 @@ class JobService {
   Future<List<String>> getCategories() async {
     try {
       final response = await _dio.get('/api/v1/jobs/categories');
-      return List<String>.from(response.data['categories'] ?? []);
+      final data = response.data as Map<String, dynamic>;
+      return List<String>.from(data['categories'] ?? []);
     } catch (e) {
       return ['Technology', 'Finance', 'Healthcare', 'Design', 'Marketing'];
     }
@@ -265,7 +267,8 @@ class JobService {
   Future<List<String>> getCountries() async {
     try {
       final response = await _dio.get('/api/v1/jobs/countries');
-      return List<String>.from(response.data['countries'] ?? []);
+      final data = response.data as Map<String, dynamic>;
+      return List<String>.from(data['countries'] ?? []);
     } catch (e) {
       return ['USA', 'UK', 'Canada', 'Australia', 'Germany'];
     }

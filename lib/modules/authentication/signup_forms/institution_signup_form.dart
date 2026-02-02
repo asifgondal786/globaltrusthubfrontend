@@ -369,7 +369,7 @@ class _InstitutionSignupFormState extends State<InstitutionSignupForm> {
               items: items.map((item) => DropdownMenuItem(
                 value: item,
                 child: Text(item),
-              )).toList(),
+              ),).toList(),
               onChanged: onChanged,
             ),
           ),

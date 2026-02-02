@@ -230,7 +230,7 @@ class _ServiceProviderSignupFormState extends State<ServiceProviderSignupForm> {
             margin: const EdgeInsets.only(right: 16),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [AppColors.primary, AppColors.primaryVariant]),
+              gradient: const LinearGradient(colors: [AppColors.primary, AppColors.primaryVariant]),
               borderRadius: BorderRadius.circular(20),
             ),
             child: const Text(
@@ -253,12 +253,12 @@ class _ServiceProviderSignupFormState extends State<ServiceProviderSignupForm> {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      providerColor.withOpacity(0.15),
-                      providerColor.withOpacity(0.05),
+                      providerColor.withValues(alpha: 0.15),
+                      providerColor.withValues(alpha: 0.05),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: providerColor.withOpacity(0.3)),
+                  border: Border.all(color: providerColor.withValues(alpha: 0.3)),
                 ),
                 child: Row(
                   children: [
@@ -268,7 +268,7 @@ class _ServiceProviderSignupFormState extends State<ServiceProviderSignupForm> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
-                          BoxShadow(color: providerColor.withOpacity(0.2), blurRadius: 8, spreadRadius: 1),
+                          BoxShadow(color: providerColor.withValues(alpha: 0.2), blurRadius: 8, spreadRadius: 1),
                         ],
                       ),
                       child: Icon(_getProviderIcon(), color: providerColor, size: 32),
@@ -556,8 +556,8 @@ class _ServiceProviderSignupFormState extends State<ServiceProviderSignupForm> {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      providerColor.withOpacity(0.1),
-                      AppColors.secondary.withOpacity(0.1),
+                      providerColor.withValues(alpha: 0.1),
+                      AppColors.secondary.withValues(alpha: 0.1),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(12),
@@ -567,7 +567,7 @@ class _ServiceProviderSignupFormState extends State<ServiceProviderSignupForm> {
                   children: [
                     Row(
                       children: [
-                        Icon(Icons.star, color: AppColors.secondary),
+                        const Icon(Icons.star, color: AppColors.secondary),
                         const SizedBox(width: 8),
                         Text(
                           'Trust Score Benefits',
@@ -597,7 +597,7 @@ class _ServiceProviderSignupFormState extends State<ServiceProviderSignupForm> {
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: color.withOpacity(0.1),
+            color: color.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(icon, size: 18, color: color),

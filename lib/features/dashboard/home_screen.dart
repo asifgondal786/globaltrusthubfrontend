@@ -57,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _carouselTimer?.cancel();
     _carouselTimer = Timer.periodic(tickDuration, (timer) {
       if (_scrollController.hasClients) {
-        double maxScroll = _scrollController.position.maxScrollExtent;
+
         double currentScroll = _scrollController.offset;
         
         // Calculate pixels to move in this tick
@@ -99,10 +99,11 @@ class _HomeScreenState extends State<HomeScreen> {
               Expanded(
                 child: SingleChildScrollView(
                   padding: EdgeInsets.only(
-                    left: 24,
-                    right: 24,
-                    top: 24,
-                    bottom: isDesktop ? 80 : 24, // Extra padding for desktop action bar
+                    // Responsive padding: 12px for phones, 16px for small tablets, 24px for larger screens
+                    left: MediaQuery.of(context).size.width < 360 ? 12 : (MediaQuery.of(context).size.width < 600 ? 16 : 24),
+                    right: MediaQuery.of(context).size.width < 360 ? 12 : (MediaQuery.of(context).size.width < 600 ? 16 : 24),
+                    top: MediaQuery.of(context).size.width < 360 ? 12 : (MediaQuery.of(context).size.width < 600 ? 16 : 24),
+                    bottom: isDesktop ? 80 : (MediaQuery.of(context).size.width < 360 ? 12 : 24), // Extra padding for desktop action bar
                   ),
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -154,8 +155,13 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildHeader() {
+    final screenWidth = MediaQuery.of(context).size.width;
+    // Responsive padding: 12px for very small phones, 16px for phones, 24px for tablets, 32px for desktop
+    final horizontalPadding = screenWidth < 360 ? 12.0 : (screenWidth < 600 ? 16.0 : (screenWidth < 900 ? 24.0 : 32.0));
+    final verticalPadding = screenWidth < 360 ? 10.0 : 16.0;
+    
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 16),
+      padding: EdgeInsets.symmetric(horizontal: horizontalPadding, vertical: verticalPadding),
       decoration: BoxDecoration(
         gradient: AppColors.heroGradient,
         boxShadow: [
@@ -191,9 +197,14 @@ class _HomeScreenState extends State<HomeScreen> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  'GlobalTrustHub',
-                  style: AppTypography.h4.copyWith(color: Colors.white, height: 1),
+                Builder(
+                  builder: (context) {
+                    final width = MediaQuery.of(context).size.width;
+                    return Text(
+                      'GlobalTrustHub',
+                      style: (width < 400 ? AppTypography.h5 : AppTypography.h4).copyWith(color: Colors.white, height: 1),
+                    );
+                  },
                 ),
                 Text(
                   'Verified & Secure',
@@ -398,9 +409,11 @@ class _HomeScreenState extends State<HomeScreen> {
         // Welcome Banner Card with Quick Actions
         Builder(builder: (context) {
           final isDark = Theme.of(context).brightness == Brightness.dark;
+          final screenWidth = MediaQuery.of(context).size.width;
+          final bannerPadding = screenWidth < 360 ? 16.0 : (screenWidth < 600 ? 20.0 : 24.0);
           return Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(24),
+          padding: EdgeInsets.all(bannerPadding),
           decoration: BoxDecoration(
             color: isDark ? AppColors.darkSurface : Colors.white,
             borderRadius: BorderRadius.circular(20),
@@ -415,141 +428,133 @@ class _HomeScreenState extends State<HomeScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
+              Builder(
+                builder: (context) {
+                  final screenWidth = MediaQuery.of(context).size.width;
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Consumer<UserProvider>(
-                        builder: (context, userProvider, child) {
-                          final firstName = userProvider.userName.split(' ').first;
-                          return Text(
-                            'Welcome, $firstName!',
-                            style: AppTypography.h3.copyWith(color: isDark ? Colors.white : AppColors.textPrimary),
-                          );
-                        },
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Consumer<UserProvider>(
+                              builder: (context, userProvider, child) {
+                                final firstName = userProvider.userName.split(' ').first;
+                                // Responsive typography: smaller on mobile
+                                final titleStyle = screenWidth < 360 
+                                    ? AppTypography.h5 
+                                    : (screenWidth < 600 ? AppTypography.h4 : AppTypography.h3);
+                                return Text(
+                                  'Welcome, $firstName!',
+                                  style: titleStyle.copyWith(color: isDark ? Colors.white : AppColors.textPrimary),
+                                );
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              'Your Trusted Pathway to Global Opportunities',
+                              style: (screenWidth < 360 ? AppTypography.bodySmall : AppTypography.bodyLarge).copyWith(
+                                color: isDark ? Colors.grey[400] : AppColors.textSecondary,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      const SizedBox(height: 8),
-                      Text(
-                        'Your Trusted Pathway to Global Opportunities',
-                        style: AppTypography.bodyLarge.copyWith(color: isDark ? Colors.grey[400] : AppColors.textSecondary),
+                      const SizedBox(width: 8),
+                      // Three dots menu
+                      Row(
+                        children: [
+                          _DecorativeDot(),
+                          const SizedBox(width: 4),
+                          _DecorativeDot(),
+                          const SizedBox(width: 4),
+                          _DecorativeDot(),
+                        ],
                       ),
                     ],
-                  ),
-                  // Three dots menu
-                  Row(
-                    children: [
-                      _DecorativeDot(),
-                      const SizedBox(width: 4),
-                      _DecorativeDot(),
-                      const SizedBox(width: 4),
-                      _DecorativeDot(),
-                    ],
-                  ),
-                ],
+                  );
+                },
               ),
               const SizedBox(height: 24),
               // 4 Static Quick Action Cards in a Row
-              Row(
-                children: [
-                  Expanded(
-                    child: _StaticActionCard(
-                      icon: Icons.school_rounded,
-                      label: 'Find Universities',
-                      iconColor: const Color(0xFF1E40AF),
-                      bgColor: const Color(0xFFDBEAFE),
-                      onTap: () => context.go('/universities'),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: _StaticActionCard(
-                      icon: Icons.search_rounded,
-                      label: 'Search Jobs',
-                      iconColor: const Color(0xFF1E40AF),
-                      bgColor: const Color(0xFFDBEAFE),
-                      onTap: () => context.go('/jobs'),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: _StaticActionCard(
-                      icon: Icons.location_on_rounded,
-                      label: 'Trusted Agents',
-                      iconColor: const Color(0xFFDC2626),
-                      bgColor: const Color(0xFFFEE2E2),
-                      onTap: () => context.go('/agents'),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: _StaticActionCard(
-                      icon: Icons.payment_rounded,
-                      label: 'Payment Methods',
-                      iconColor: const Color(0xFF7C3AED),
-                      bgColor: const Color(0xFFEDE9FE),
-                      onTap: () => context.go('/payments'),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 12),
-              Row(
-                children: [
-                  Expanded(
-                    child: _StaticActionCard(
-                      icon: Icons.account_balance_wallet_rounded,
-                      label: 'Financial Aid',
-                      iconColor: const Color(0xFF059669),
-                      bgColor: const Color(0xFFD1FAE5),
-                      onTap: () => context.go('/financial-aid'),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: _StaticActionCard(
-                      icon: Icons.newspaper_rounded,
-                      label: 'Latest News',
-                      iconColor: const Color(0xFFEA580C),
-                      bgColor: const Color(0xFFFED7AA),
-                      onTap: () => context.go('/news'),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: _StaticActionCard(
-                      icon: Icons.support_agent_rounded,
-                      label: 'Get Support',
-                      iconColor: const Color(0xFF0891B2),
-                      bgColor: const Color(0xFFCFFAFE),
-                      onTap: () => context.go('/support'),
-                    ),
-                  ),
-                  const SizedBox(width: 16),
-                  Expanded(
-                    child: _StaticActionCard(
-                      icon: Icons.notifications_rounded,
-                      label: 'Notifications',
-                      iconColor: const Color(0xFFDB2777),
-                      bgColor: const Color(0xFFFCE7F3),
-                      onTap: () => context.go('/notifications'),
-                    ),
-                  ),
-                ],
-              ),
+              // 4 Action Cards in a Responsive Grid
+              _buildResponsiveGrid(context, [
+                _StaticActionCard(
+                  icon: Icons.school_rounded,
+                  label: 'Find Universities',
+                  iconColor: const Color(0xFF1E40AF),
+                  bgColor: const Color(0xFFDBEAFE),
+                  onTap: () => context.go('/universities'),
+                ),
+                _StaticActionCard(
+                  icon: Icons.search_rounded,
+                  label: 'Search Jobs',
+                  iconColor: const Color(0xFF1E40AF),
+                  bgColor: const Color(0xFFDBEAFE),
+                  onTap: () => context.go('/jobs'),
+                ),
+                _StaticActionCard(
+                  icon: Icons.location_on_rounded,
+                  label: 'Trusted Agents',
+                  iconColor: const Color(0xFFDC2626),
+                  bgColor: const Color(0xFFFEE2E2),
+                  onTap: () => context.go('/agents'),
+                ),
+                _StaticActionCard(
+                  icon: Icons.payment_rounded,
+                  label: 'Payment Methods',
+                  iconColor: const Color(0xFF7C3AED),
+                  bgColor: const Color(0xFFEDE9FE),
+                  onTap: () => context.go('/payments'),
+                ),
+              ]),
+              const SizedBox(height: 16), // Spacing between grid blocks if needed, grid handles its own rows
+              _buildResponsiveGrid(context, [
+                _StaticActionCard(
+                  icon: Icons.account_balance_wallet_rounded,
+                  label: 'Financial Aid',
+                  iconColor: const Color(0xFF059669),
+                  bgColor: const Color(0xFFD1FAE5),
+                  onTap: () => context.go('/financial-aid'),
+                ),
+                _StaticActionCard(
+                  icon: Icons.newspaper_rounded,
+                  label: 'Latest News',
+                  iconColor: const Color(0xFFEA580C),
+                  bgColor: const Color(0xFFFED7AA),
+                  onTap: () => context.go('/news'),
+                ),
+                _StaticActionCard(
+                  icon: Icons.support_agent_rounded,
+                  label: 'Get Support',
+                  iconColor: const Color(0xFF0891B2),
+                  bgColor: const Color(0xFFCFFAFE),
+                  onTap: () => context.go('/support'),
+                ),
+                _StaticActionCard(
+                  icon: Icons.notifications_rounded,
+                  label: 'Notifications',
+                  iconColor: const Color(0xFFDB2777),
+                  bgColor: const Color(0xFFFCE7F3),
+                  onTap: () => context.go('/notifications'),
+                ),
+              ]),
             ],
           ),
         );
-        }),
+        },),
         const SizedBox(height: 24),
 
 
         // Journey Progress Section
         Builder(builder: (context) {
           final isDark = Theme.of(context).brightness == Brightness.dark;
+          final screenWidth = MediaQuery.of(context).size.width;
+          final sectionPadding = screenWidth < 360 ? 16.0 : (screenWidth < 600 ? 20.0 : 24.0);
           return Container(
-          padding: const EdgeInsets.all(24),
+          padding: EdgeInsets.all(sectionPadding),
           decoration: BoxDecoration(
             color: isDark ? AppColors.darkSurface : Colors.white,
             borderRadius: BorderRadius.circular(20),
@@ -591,56 +596,95 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
               const SizedBox(height: 32),
               
-              // Action Buttons
-              Row(
-                children: [
-                   ElevatedButton(
+              // Action Buttons - Responsive: Stack on mobile, Row on tablet+
+              Builder(
+                builder: (context) {
+                  final screenWidth = MediaQuery.of(context).size.width;
+                  final isNarrow = screenWidth < 500;
+                  final buttonPadding = screenWidth < 360 
+                      ? const EdgeInsets.symmetric(horizontal: 12, vertical: 10)
+                      : const EdgeInsets.symmetric(horizontal: 24, vertical: 16);
+                  
+                  final viewAppButton = ElevatedButton(
                     onPressed: () => context.go('/journey'),
                     style: ElevatedButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                      backgroundColor: const Color(0xFF1E3A8A), // Deep Blue
+                      padding: buttonPadding,
+                      backgroundColor: const Color(0xFF1E3A8A),
                       foregroundColor: Colors.white,
                       elevation: 0,
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
-                    child: const Row(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text('View Applications', style: TextStyle(fontWeight: FontWeight.w600)),
-                        SizedBox(width: 8),
-                        Icon(Icons.arrow_forward_ios_rounded, size: 14),
+                        Text(
+                          screenWidth < 360 ? 'Applications' : 'View Applications',
+                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: screenWidth < 360 ? 12 : 14),
+                        ),
+                        const SizedBox(width: 8),
+                        const Icon(Icons.arrow_forward_ios_rounded, size: 14),
                       ],
                     ),
-                  ),
-                  const Spacer(),
-                  FilledButton.tonal(
+                  );
+                  
+                  final guideButton = FilledButton.tonal(
                     onPressed: () => context.go('/study-abroad'),
                     style: FilledButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-                      backgroundColor: const Color(0xFFDBEAFE), // Light Blue
-                      foregroundColor: const Color(0xFF1E3A8A), // Deep Blue Text
+                      padding: buttonPadding,
+                      backgroundColor: const Color(0xFFDBEAFE),
+                      foregroundColor: const Color(0xFF1E3A8A),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                     ),
-                    child: const Row(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
                       children: [
-                        Text('Pre-Departure Guide', style: TextStyle(fontWeight: FontWeight.w600)),
-                        SizedBox(width: 8),
-                        Icon(Icons.arrow_forward_ios_rounded, size: 14),
+                        Text(
+                          screenWidth < 360 ? 'Guide' : 'Pre-Departure Guide',
+                          style: TextStyle(fontWeight: FontWeight.w600, fontSize: screenWidth < 360 ? 12 : 14),
+                        ),
+                        const SizedBox(width: 8),
+                        const Icon(Icons.arrow_forward_ios_rounded, size: 14),
                       ],
                     ),
-                  ),
-                ],
+                  );
+                  
+                  if (isNarrow) {
+                    return Column(
+                      crossAxisAlignment: CrossAxisAlignment.stretch,
+                      children: [
+                        viewAppButton,
+                        const SizedBox(height: 12),
+                        guideButton,
+                      ],
+                    );
+                  }
+                  
+                  return Row(
+                    children: [
+                      Expanded(child: viewAppButton),
+                      const SizedBox(width: 12),
+                      Expanded(child: guideButton),
+                    ],
+                  );
+                },
               ),
             ],
           ),
         );
-        }),
+        },),
         const SizedBox(height: 24),
 
         // Quick Tips Section
         Builder(builder: (context) {
           final isDark = Theme.of(context).brightness == Brightness.dark;
+          final screenWidth = MediaQuery.of(context).size.width;
+          final isVerySmall = screenWidth < 360;
+          final padding = isVerySmall ? 12.0 : 20.0;
+          final iconSize = isVerySmall ? 20.0 : 24.0;
+          final iconPadding = isVerySmall ? 10.0 : 12.0;
+          
           return Container(
-          padding: const EdgeInsets.all(20),
+          padding: EdgeInsets.all(padding),
           decoration: BoxDecoration(
             color: isDark ? AppColors.darkSurface : Colors.white,
             borderRadius: BorderRadius.circular(16),
@@ -658,35 +702,51 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
           ),
           child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               // Styled Lightbulb Icon
               Container(
-                padding: const EdgeInsets.all(12),
+                padding: EdgeInsets.all(iconPadding),
                 decoration: const BoxDecoration(
                   color: AppColors.primary,
                   shape: BoxShape.circle,
                 ),
-                child: const Icon(Icons.lightbulb_outline_rounded, color: Colors.white, size: 24),
+                child: Icon(Icons.lightbulb_outline_rounded, color: Colors.white, size: iconSize),
               ),
-              const SizedBox(width: 16),
+              SizedBox(width: isVerySmall ? 10 : 16),
               Expanded(
-                child: RichText(
-                  text: TextSpan(
-                    style: AppTypography.bodyMedium.copyWith(color: isDark ? Colors.white : AppColors.textPrimary),
-                    children: [
-                      TextSpan(
-                        text: 'Quick Tips for Success: ',
-                        style: AppTypography.labelLarge.copyWith(color: AppColors.primary),
+                child: isVerySmall 
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Quick Tips:',
+                          style: AppTypography.labelMedium.copyWith(color: AppColors.primary, fontWeight: FontWeight.bold),
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          'Budget Wisely • Work Legally • Stay Safe',
+                          style: AppTypography.bodySmall.copyWith(color: isDark ? Colors.white : AppColors.textPrimary),
+                        ),
+                      ],
+                    )
+                  : RichText(
+                      text: TextSpan(
+                        style: AppTypography.bodyMedium.copyWith(color: isDark ? Colors.white : AppColors.textPrimary),
+                        children: [
+                          TextSpan(
+                            text: 'Quick Tips for Success: ',
+                            style: AppTypography.labelLarge.copyWith(color: AppColors.primary),
+                          ),
+                          const TextSpan(text: 'Budget Wisely • Work Legally • Stay Safe'),
+                        ],
                       ),
-                      const TextSpan(text: 'Budget Wisely • Work Legally • Stay Safe'),
-                    ],
-                  ),
-                ),
+                    ),
               ),
             ],
           ),
         );
-        }),
+        },),
       ],
     );
   }
@@ -910,35 +970,65 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: _FeaturedServiceImageCard(
-                          title: 'IELTS\nCoaching',
-                          icon: Icons.school_rounded,
-                          gradientColors: [const Color(0xFF1E40AF), const Color(0xFF3B82F6)],
-                          onTap: () => context.go('/services'),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: _FeaturedServiceImageCard(
-                          title: 'Student\nHousing',
-                          icon: Icons.home_rounded,
-                          gradientColors: [const Color(0xFF059669), const Color(0xFF10B981)],
-                          onTap: () => context.go('/services'),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Expanded(
-                        child: _FeaturedServiceImageCard(
-                          title: 'Money\nTransfer',
-                          icon: Icons.currency_exchange_rounded,
-                          gradientColors: [const Color(0xFFDC2626), const Color(0xFFF87171)],
-                          onTap: () => context.go('/services'),
-                        ),
-                      ),
-                    ],
+                  LayoutBuilder(
+                    builder: (context, constraints) {
+                      if (constraints.maxWidth < 400) {
+                        return Column(
+                          children: [
+                            _FeaturedServiceImageCard(
+                              title: 'IELTS\nCoaching',
+                              icon: Icons.school_rounded,
+                              gradientColors: const [Color(0xFF1E40AF), Color(0xFF3B82F6)],
+                              onTap: () => context.go('/services'),
+                            ),
+                            const SizedBox(height: 12),
+                            _FeaturedServiceImageCard(
+                              title: 'Student\nHousing',
+                              icon: Icons.home_rounded,
+                              gradientColors: const [Color(0xFF059669), Color(0xFF10B981)],
+                              onTap: () => context.go('/services'),
+                            ),
+                            const SizedBox(height: 12),
+                            _FeaturedServiceImageCard(
+                              title: 'Money\nTransfer',
+                              icon: Icons.currency_exchange_rounded,
+                              gradientColors: const [Color(0xFFDC2626), Color(0xFFF87171)],
+                              onTap: () => context.go('/services'),
+                            ),
+                          ],
+                        );
+                      }
+                      return Row(
+                        children: [
+                          Expanded(
+                            child: _FeaturedServiceImageCard(
+                              title: 'IELTS\nCoaching',
+                              icon: Icons.school_rounded,
+                              gradientColors: const [Color(0xFF1E40AF), Color(0xFF3B82F6)],
+                              onTap: () => context.go('/services'),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: _FeaturedServiceImageCard(
+                              title: 'Student\nHousing',
+                              icon: Icons.home_rounded,
+                              gradientColors: const [Color(0xFF059669), Color(0xFF10B981)],
+                              onTap: () => context.go('/services'),
+                            ),
+                          ),
+                          const SizedBox(width: 8),
+                          Expanded(
+                            child: _FeaturedServiceImageCard(
+                              title: 'Money\nTransfer',
+                              icon: Icons.currency_exchange_rounded,
+                              gradientColors: const [Color(0xFFDC2626), Color(0xFFF87171)],
+                              onTap: () => context.go('/services'),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ],
               ),
@@ -1107,11 +1197,11 @@ class _HeaderNavItemState extends State<_HeaderNavItem> {
               duration: const Duration(milliseconds: 200),
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
               decoration: BoxDecoration(
-                color: _isHovered ? Colors.white : Colors.white.withOpacity(0.15),
+                color: _isHovered ? Colors.white : Colors.white.withValues(alpha: 0.15),
                 borderRadius: BorderRadius.circular(20),
-                border: Border.all(color: Colors.white.withOpacity(0.3)),
+                border: Border.all(color: Colors.white.withValues(alpha: 0.3)),
                 boxShadow: _isHovered 
-                  ? [BoxShadow(color: Colors.white.withOpacity(0.2), blurRadius: 8)]
+                  ? [BoxShadow(color: Colors.white.withValues(alpha: 0.2), blurRadius: 8)]
                   : [],
               ),
               child: Row(
@@ -1173,6 +1263,64 @@ class _HeaderNavItemState extends State<_HeaderNavItem> {
       ),
     );
   }
+}
+
+/// Helper method to build a responsive grid of widgets
+/// On mobile (<600px): 2 columns
+/// On desktop (>=600px): All in one row (4 columns)
+Widget _buildResponsiveGrid(BuildContext context, List<Widget> children) {
+  final width = MediaQuery.of(context).size.width;
+  
+  // Desktop/Tablet: Single Row of 4
+  if (width >= 800) {
+    return Row(
+      children: [
+        Expanded(child: children[0]),
+        const SizedBox(width: 16),
+        Expanded(child: children[1]),
+        const SizedBox(width: 16),
+        Expanded(child: children[2]),
+        const SizedBox(width: 16),
+        Expanded(child: children[3]),
+      ],
+    );
+  }
+
+  // Small Mobile (< 400px): 1 Column (Vertical Stack)
+  if (width < 400) {
+    return Column(
+      children: [
+        children[0],
+        const SizedBox(height: 12),
+        children[1],
+        const SizedBox(height: 12),
+        children[2],
+        const SizedBox(height: 12),
+        children[3],
+      ],
+    );
+  }
+  
+  // Tablet / Standard Mobile: Column of 2 Rows (2x2)
+  return Column(
+    children: [
+      Row(
+        children: [
+          Expanded(child: children[0]),
+          const SizedBox(width: 16),
+          Expanded(child: children[1]),
+        ],
+      ),
+      const SizedBox(height: 16),
+      Row(
+        children: [
+          Expanded(child: children[2]),
+          const SizedBox(width: 16),
+          Expanded(child: children[3]),
+        ],
+      ),
+    ],
+  );
 }
 
 class _QuickActionCard extends StatelessWidget {
@@ -1260,153 +1408,9 @@ class _QuickActionCard extends StatelessWidget {
   }
 }
 
-class _SimpleNewsItem extends StatelessWidget {
-  final String title;
-  final String time;
 
-  const _SimpleNewsItem({required this.title, required this.time});
 
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          title,
-          style: AppTypography.labelMedium.copyWith(
-            fontWeight: FontWeight.w600,
-            color: Theme.of(context).brightness == Brightness.dark ? Colors.blue[200] : const Color(0xFF1E3A8A), // Dark blue like screenshot
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          time,
-          style: AppTypography.bodySmall.copyWith(
-            color: Theme.of(context).brightness == Brightness.dark ? Colors.grey[400] : null
-          ),
-        ),
-      ],
-    );
-  }
-}
 
-class _SidebarHighlightItem extends StatelessWidget {
-  final String title;
-  final double rating;
-  final String? image;
-  final Color? color;
-  final IconData? icon;
-
-  const _SidebarHighlightItem({
-    required this.title,
-    required this.rating,
-    this.image,
-    this.color,
-    this.icon,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        if (image != null)
-           CircleAvatar(
-             backgroundImage: NetworkImage(image!),
-             radius: 24,
-           )
-        else
-          CircleAvatar(
-            backgroundColor: color ?? AppColors.primary,
-            radius: 24,
-            child: Icon(icon ?? Icons.person, color: Colors.white, size: 24),
-          ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(title, style: AppTypography.labelMedium),
-              Row(
-                children: [
-                  ...List.generate(5, (index) => Icon(
-                    Icons.star_rounded, 
-                    size: 14, 
-                    color: index < rating.floor() ? const Color(0xFFF59E0B) : Colors.grey[300],
-                  ),),
-                  const SizedBox(width: 4),
-                  Text(rating.toString(), style: AppTypography.caption),
-                ],
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _FeaturedServiceCard extends StatelessWidget {
-  final String title;
-  final IconData icon;
-  final String? imagePath; // Optional image URL
-
-  const _FeaturedServiceCard({
-    required this.title, 
-    required this.icon,
-    this.imagePath,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Container(
-          width: 80,
-          height: 60,
-          decoration: BoxDecoration(
-            color: AppColors.background,
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: AppColors.divider),
-            image: imagePath != null
-                ? DecorationImage(
-                    image: NetworkImage(imagePath!),
-                    fit: BoxFit.cover,
-                  )
-                : null,
-          ),
-          child: imagePath == null
-              ? Icon(icon, color: AppColors.primary, size: 28)
-              : null,
-        ),
-        const SizedBox(height: 8),
-        Text(
-          title,
-          textAlign: TextAlign.center,
-          style: AppTypography.caption.copyWith(
-            fontSize: 11,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        const SizedBox(height: 4),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-          decoration: BoxDecoration(
-            color: AppColors.primary,
-            borderRadius: BorderRadius.circular(4),
-          ),
-          child: Text(
-            'View Details',
-            style: AppTypography.caption.copyWith(
-              color: Colors.white,
-              fontSize: 9,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ),
-      ],
-    );
-  }
-}
 
 /// Top Rated Card with avatar and star rating matching target design
 class _TopRatedCard extends StatelessWidget {
@@ -1483,7 +1487,7 @@ class _TopRatedCard extends StatelessWidget {
                         color: index < rating.floor() 
                             ? const Color(0xFFF59E0B) 
                             : Colors.grey.shade300,
-                      )),
+                      ),),
                       const SizedBox(width: 6),
                       Text(
                         rating.toString(),
@@ -1657,7 +1661,6 @@ class _CarouselActionCard extends StatelessWidget {
     required this.label,
     required this.color,
     required this.onTap,
-    this.width,
   });
 
   @override
@@ -1745,42 +1748,70 @@ class _StaticActionCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(16),
-      child: Container(
-        padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 12),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: const Color(0xFFE5E7EB), width: 1),
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Container(
-              padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
-                color: bgColor,
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(icon, size: 32, color: iconColor),
+    
+    // Use LayoutBuilder to make card fully responsive
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        // Determine sizing based on available width
+        final isCompact = constraints.maxWidth < 140;
+        final isVeryCompact = constraints.maxWidth < 100;
+        
+        final cardHeight = isVeryCompact ? 100.0 : (isCompact ? 120.0 : 140.0);
+        final cardPadding = isVeryCompact ? 8.0 : (isCompact ? 12.0 : 16.0);
+        final iconSize = isVeryCompact ? 20.0 : (isCompact ? 24.0 : 28.0);
+        final iconPadding = isVeryCompact ? 8.0 : (isCompact ? 10.0 : 12.0);
+        final textSpacing = isVeryCompact ? 6.0 : (isCompact ? 8.0 : 12.0);
+        
+        return InkWell(
+          onTap: onTap,
+          borderRadius: BorderRadius.circular(isCompact ? 12 : 16),
+          child: Container(
+            height: cardHeight,
+            padding: EdgeInsets.all(cardPadding),
+            decoration: BoxDecoration(
+              color: isDark ? AppColors.darkSurfaceElevated : Colors.white,
+              borderRadius: BorderRadius.circular(isCompact ? 12 : 16),
+              border: Border.all(color: AppColors.divider.withValues(alpha: 0.5)),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(isDark ? 0.3 : 0.05),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                ),
+              ],
             ),
-            const SizedBox(height: 12),
-            Text(
-              label,
-              textAlign: TextAlign.center,
-              style: AppTypography.labelMedium.copyWith(
-                fontWeight: FontWeight.w600,
-                color: AppColors.textPrimary,
-              ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  padding: EdgeInsets.all(iconPadding),
+                  decoration: BoxDecoration(
+                    color: bgColor,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(icon, color: iconColor, size: iconSize),
+                ),
+                SizedBox(height: textSpacing),
+                Text(
+                  label,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  style: (isVeryCompact ? AppTypography.caption : AppTypography.labelMedium).copyWith(
+                    fontWeight: FontWeight.w600,
+                    color: isDark ? Colors.white : AppColors.textPrimary,
+                    height: 1.2,
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
+
 
 class _DecorativeDot extends StatelessWidget {
   @override
@@ -1794,6 +1825,54 @@ class _DecorativeDot extends StatelessWidget {
           color: AppColors.divider,
           borderRadius: BorderRadius.circular(2),
         ),
+      ),
+    );
+  }
+}
+
+class _SimpleNewsItem extends StatelessWidget {
+  final String title;
+  final String time;
+
+  const _SimpleNewsItem({required this.title, required this.time});
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: 4,
+            height: 4,
+            margin: const EdgeInsets.only(top: 8, right: 12),
+            decoration: const BoxDecoration(
+              color: AppColors.primary,
+              shape: BoxShape.circle,
+            ),
+          ),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: AppTypography.bodyMedium.copyWith(
+                    fontWeight: FontWeight.w500,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  time,
+                  style: AppTypography.caption.copyWith(color: AppColors.textSecondary),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

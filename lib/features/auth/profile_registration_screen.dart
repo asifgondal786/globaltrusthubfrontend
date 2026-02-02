@@ -99,7 +99,7 @@ class _ProfileRegistrationScreenState extends State<ProfileRegistrationScreen> {
                 children: [
                   // Title Dropdown
                   DropdownButtonFormField<String>(
-                    value: _selectedTitle,
+                    initialValue: _selectedTitle,
                     decoration: InputDecoration(
                       labelText: 'Title',
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
@@ -109,7 +109,7 @@ class _ProfileRegistrationScreenState extends State<ProfileRegistrationScreen> {
                     items: _titles.map((title) => DropdownMenuItem(
                       value: title,
                       child: Text(title),
-                    )).toList(),
+                    ),).toList(),
                     onChanged: (value) => setState(() => _selectedTitle = value!),
                   ),
                   const SizedBox(height: 16),
@@ -259,7 +259,7 @@ class _ProfileRegistrationScreenState extends State<ProfileRegistrationScreen> {
                   
                   // Register As
                   DropdownButtonFormField<String>(
-                    value: _registerAs,
+                    initialValue: _registerAs,
                     decoration: InputDecoration(
                       labelText: 'Register As',
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
@@ -269,7 +269,7 @@ class _ProfileRegistrationScreenState extends State<ProfileRegistrationScreen> {
                     items: _registerOptions.map((option) => DropdownMenuItem(
                       value: option,
                       child: Text(option),
-                    )).toList(),
+                    ),).toList(),
                     onChanged: (value) => setState(() => _registerAs = value!),
                   ),
                 ],
@@ -295,7 +295,7 @@ class _ProfileRegistrationScreenState extends State<ProfileRegistrationScreen> {
                   
                   // Service Dropdown
                   DropdownButtonFormField<String>(
-                    value: _selectedService,
+                    initialValue: _selectedService,
                     decoration: InputDecoration(
                       labelText: 'Service Type',
                       border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
@@ -305,7 +305,7 @@ class _ProfileRegistrationScreenState extends State<ProfileRegistrationScreen> {
                     items: _services.map((service) => DropdownMenuItem(
                       value: service,
                       child: Text(service),
-                    )).toList(),
+                    ),).toList(),
                     onChanged: (value) => setState(() => _selectedService = value!),
                   ),
                   const SizedBox(height: 24),
@@ -314,13 +314,13 @@ class _ProfileRegistrationScreenState extends State<ProfileRegistrationScreen> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: AppColors.primary.withOpacity(0.1),
+                      color: AppColors.primary.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: AppColors.primary.withOpacity(0.3)),
+                      border: Border.all(color: AppColors.primary.withValues(alpha: 0.3)),
                     ),
                     child: Row(
                       children: [
-                        Icon(Icons.chat_bubble, color: AppColors.primary),
+                        const Icon(Icons.chat_bubble, color: AppColors.primary),
                         const SizedBox(width: 12),
                         Expanded(
                           child: Column(
@@ -531,11 +531,11 @@ class _ProfileRegistrationScreenState extends State<ProfileRegistrationScreen> {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Row(
+        title: const Row(
           children: [
-            const Icon(Icons.check_circle, color: Colors.green, size: 32),
-            const SizedBox(width: 12),
-            const Text('Registration Complete!'),
+            Icon(Icons.check_circle, color: Colors.green, size: 32),
+            SizedBox(width: 12),
+            Text('Registration Complete!'),
           ],
         ),
         content: const Text(

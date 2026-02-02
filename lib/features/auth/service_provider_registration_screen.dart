@@ -44,7 +44,7 @@ class _ServiceProviderRegistrationScreenState extends State<ServiceProviderRegis
   String? _drivingLicensePath;
 
   // Step 5: Certificates
-  List<Map<String, String>> _certificates = [];
+  final List<Map<String, String>> _certificates = [];
 
   @override
   void dispose() {
@@ -135,7 +135,7 @@ class _ServiceProviderRegistrationScreenState extends State<ServiceProviderRegis
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.green.withOpacity(0.1),
+                color: Colors.green.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
               child: const Icon(Icons.check, color: Colors.green),
@@ -335,7 +335,7 @@ class _ServiceProviderRegistrationScreenState extends State<ServiceProviderRegis
 
           // Title
           DropdownButtonFormField<String>(
-            value: _selectedTitle,
+            initialValue: _selectedTitle,
             decoration: _inputDecoration('Title'),
             items: ['Mr.', 'Ms.', 'Mrs.', 'Dr.', 'Prof.']
                 .map((t) => DropdownMenuItem(value: t, child: Text(t)))
@@ -417,7 +417,7 @@ class _ServiceProviderRegistrationScreenState extends State<ServiceProviderRegis
 
           // Service Type
           DropdownButtonFormField<String>(
-            value: _selectedServiceType,
+            initialValue: _selectedServiceType,
             decoration: _inputDecoration('Service Type'),
             items: [
               'Education Agent',
@@ -498,9 +498,9 @@ class _ServiceProviderRegistrationScreenState extends State<ServiceProviderRegis
           Container(
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
-              color: Colors.blue.withOpacity(0.1),
+              color: Colors.blue.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.blue.withOpacity(0.3)),
+              border: Border.all(color: Colors.blue.withValues(alpha: 0.3)),
             ),
             child: Row(
               children: [
@@ -677,7 +677,7 @@ class _ServiceProviderRegistrationScreenState extends State<ServiceProviderRegis
                   Container(
                     padding: const EdgeInsets.all(10),
                     decoration: BoxDecoration(
-                      color: Colors.amber.withOpacity(0.1),
+                      color: Colors.amber.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     child: const Icon(Icons.workspace_premium, color: Colors.amber),
@@ -708,7 +708,7 @@ class _ServiceProviderRegistrationScreenState extends State<ServiceProviderRegis
         Container(
           padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
-            color: Colors.blue.withOpacity(0.1),
+            color: Colors.blue.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Row(
@@ -752,7 +752,7 @@ class _ServiceProviderRegistrationScreenState extends State<ServiceProviderRegis
       child: Container(
         padding: const EdgeInsets.all(20),
         decoration: BoxDecoration(
-          color: path != null ? Colors.green.withOpacity(0.1) : Colors.grey.shade100,
+          color: path != null ? Colors.green.withValues(alpha: 0.1) : Colors.grey.shade100,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: path != null ? Colors.green : Colors.grey.shade300,

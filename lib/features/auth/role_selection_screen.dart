@@ -4,10 +4,6 @@ import 'package:global_trust_hub/core/theme/app_typography.dart';
 import 'package:global_trust_hub/models/models.dart';
 import 'package:global_trust_hub/widgets/widgets.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
-import 'package:global_trust_hub/state_management/services_provider.dart';
-import 'package:global_trust_hub/state_management/news_provider.dart';
-import 'package:global_trust_hub/state_management/journey_provider.dart';
 
 /// Role selection screen - Premium Design matching HomeScreen layout
 class RoleSelectionScreen extends StatefulWidget {
@@ -627,7 +623,7 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
                     child: _FeaturedServiceImageCard(
                       title: 'IELTS\nCoaching',
                       icon: Icons.school_rounded,
-                      gradientColors: [const Color(0xFF1E40AF), const Color(0xFF3B82F6)],
+                      gradientColors: const [Color(0xFF1E40AF), Color(0xFF3B82F6)],
                       onTap: () {},
                     ),
                   ),
@@ -636,7 +632,7 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
                     child: _FeaturedServiceImageCard(
                       title: 'Student\nHousing',
                       icon: Icons.home_rounded,
-                      gradientColors: [const Color(0xFF059669), const Color(0xFF10B981)],
+                      gradientColors: const [Color(0xFF059669), Color(0xFF10B981)],
                       onTap: () {},
                     ),
                   ),
@@ -645,7 +641,7 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
                     child: _FeaturedServiceImageCard(
                       title: 'Money\nTransfer',
                       icon: Icons.currency_exchange_rounded,
-                      gradientColors: [const Color(0xFFDC2626), const Color(0xFFF87171)],
+                      gradientColors: const [Color(0xFFDC2626), Color(0xFFF87171)],
                       onTap: () {},
                     ),
                   ),
@@ -717,10 +713,10 @@ class _RoleSelectionScreenState extends State<RoleSelectionScreen> {
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: AppColors.error.withOpacity(0.1),
+                color: AppColors.error.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
-              child: Icon(Icons.shield_rounded, color: AppColors.error),
+              child: const Icon(Icons.shield_rounded, color: AppColors.error),
             ),
             const SizedBox(width: 12),
             const Text('Safety Alert'),

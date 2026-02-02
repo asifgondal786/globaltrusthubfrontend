@@ -1,5 +1,6 @@
 /// News API Service
 /// Handles all news and updates related API calls
+library news_service;
 
 import 'package:global_trust_hub/core/api/api_client.dart';
 import 'package:global_trust_hub/core/api/api_config.dart';

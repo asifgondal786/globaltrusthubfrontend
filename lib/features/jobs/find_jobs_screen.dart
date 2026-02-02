@@ -298,7 +298,7 @@ class _FindJobsScreenState extends State<FindJobsScreen> with SingleTickerProvid
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -325,7 +325,7 @@ class _FindJobsScreenState extends State<FindJobsScreen> with SingleTickerProvid
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                             decoration: BoxDecoration(
-                              color: Colors.amber.withOpacity(0.1),
+                              color: Colors.amber.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Row(
@@ -349,15 +349,15 @@ class _FindJobsScreenState extends State<FindJobsScreen> with SingleTickerProvid
                           Container(
                             padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                             decoration: BoxDecoration(
-                              color: Colors.green.withOpacity(0.1),
+                              color: Colors.green.withValues(alpha: 0.1),
                               borderRadius: BorderRadius.circular(4),
                             ),
-                            child: Row(
+                            child: const Row(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                const Icon(Icons.home_work, size: 12, color: Colors.green),
-                                const SizedBox(width: 4),
-                                const Text(
+                                Icon(Icons.home_work, size: 12, color: Colors.green),
+                                SizedBox(width: 4),
+                                Text(
                                   'Remote',
                                   style: TextStyle(
                                     color: Colors.green,
@@ -380,7 +380,7 @@ class _FindJobsScreenState extends State<FindJobsScreen> with SingleTickerProvid
                       width: 56,
                       height: 56,
                       decoration: BoxDecoration(
-                        color: categoryColor.withOpacity(0.1),
+                        color: categoryColor.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: job.employer.verified
@@ -451,14 +451,14 @@ class _FindJobsScreenState extends State<FindJobsScreen> with SingleTickerProvid
                 // Location & Posted
                 Row(
                   children: [
-                    Icon(Icons.location_on_outlined, size: 16, color: AppColors.textSecondary),
+                    const Icon(Icons.location_on_outlined, size: 16, color: AppColors.textSecondary),
                     const SizedBox(width: 4),
                     Text(
                       '${job.location}, ${job.country}',
                       style: AppTypography.bodySmall.copyWith(color: AppColors.textSecondary),
                     ),
                     const Spacer(),
-                    Icon(Icons.access_time, size: 16, color: AppColors.textSecondary),
+                    const Icon(Icons.access_time, size: 16, color: AppColors.textSecondary),
                     const SizedBox(width: 4),
                     Text(
                       job.postedAgo,
@@ -474,7 +474,7 @@ class _FindJobsScreenState extends State<FindJobsScreen> with SingleTickerProvid
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                       decoration: BoxDecoration(
-                        color: AppColors.primary.withOpacity(0.1),
+                        color: AppColors.primary.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(8),
                       ),
                       child: Text(
@@ -552,7 +552,7 @@ class _FindJobsScreenState extends State<FindJobsScreen> with SingleTickerProvid
                           width: 64,
                           height: 64,
                           decoration: BoxDecoration(
-                            color: categoryColor.withOpacity(0.1),
+                            color: categoryColor.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child: Center(
@@ -642,7 +642,7 @@ class _FindJobsScreenState extends State<FindJobsScreen> with SingleTickerProvid
                           Expanded(child: Text(req, style: AppTypography.bodyMedium)),
                         ],
                       ),
-                    )),
+                    ),),
                     const SizedBox(height: 24),
                     
                     // Benefits
@@ -654,14 +654,14 @@ class _FindJobsScreenState extends State<FindJobsScreen> with SingleTickerProvid
                       children: job.benefits.map((benefit) => Container(
                         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                         decoration: BoxDecoration(
-                          color: Colors.green.withOpacity(0.1),
+                          color: Colors.green.withValues(alpha: 0.1),
                           borderRadius: BorderRadius.circular(20),
                         ),
                         child: Text(
                           benefit,
                           style: const TextStyle(color: Colors.green, fontSize: 13),
                         ),
-                      )).toList(),
+                      ),).toList(),
                     ),
                     const SizedBox(height: 32),
                     
@@ -715,7 +715,7 @@ class _FindJobsScreenState extends State<FindJobsScreen> with SingleTickerProvid
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                colors: [AppColors.primary, AppColors.primary.withOpacity(0.8)],
+                colors: [AppColors.primary, AppColors.primary.withValues(alpha: 0.8)],
               ),
               borderRadius: BorderRadius.circular(16),
             ),
@@ -724,7 +724,7 @@ class _FindJobsScreenState extends State<FindJobsScreen> with SingleTickerProvid
                 Container(
                   padding: const EdgeInsets.all(12),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.2),
+                    color: Colors.white.withValues(alpha: 0.2),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: const Icon(Icons.verified_user, color: Colors.white, size: 32),
@@ -784,9 +784,9 @@ class _FindJobsScreenState extends State<FindJobsScreen> with SingleTickerProvid
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
-              color: Colors.amber.withOpacity(0.1),
+              color: Colors.amber.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Colors.amber.withOpacity(0.3)),
+              border: Border.all(color: Colors.amber.withValues(alpha: 0.3)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -824,7 +824,7 @@ class _FindJobsScreenState extends State<FindJobsScreen> with SingleTickerProvid
         borderRadius: BorderRadius.circular(16),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.08),
+            color: Colors.black.withValues(alpha: 0.08),
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),
@@ -835,7 +835,7 @@ class _FindJobsScreenState extends State<FindJobsScreen> with SingleTickerProvid
         borderRadius: BorderRadius.circular(16),
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
-          onTap: () => _launchUrl(resource['url']),
+          onTap: () => _launchUrl(resource['url'] as String),
           child: Padding(
             padding: const EdgeInsets.all(16),
             child: Column(
@@ -846,7 +846,7 @@ class _FindJobsScreenState extends State<FindJobsScreen> with SingleTickerProvid
                     Container(
                       padding: const EdgeInsets.all(10),
                       decoration: BoxDecoration(
-                        color: (resource['color'] as Color).withOpacity(0.1),
+                        color: (resource['color'] as Color).withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Icon(
@@ -865,12 +865,12 @@ class _FindJobsScreenState extends State<FindJobsScreen> with SingleTickerProvid
                 ),
                 const Spacer(),
                 Text(
-                  resource['name'],
+                  resource['name'] as String,
                   style: AppTypography.labelLarge,
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  resource['description'],
+                  resource['description'] as String,
                   style: AppTypography.caption.copyWith(color: AppColors.textSecondary),
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -912,7 +912,7 @@ class _FindJobsScreenState extends State<FindJobsScreen> with SingleTickerProvid
           items: items.map((item) => DropdownMenuItem(
             value: item,
             child: Text(item),
-          )).toList(),
+          ),).toList(),
           onChanged: onChanged,
         ),
       ),
@@ -931,4 +931,4 @@ class _FindJobsScreenState extends State<FindJobsScreen> with SingleTickerProvid
       ),
     );
   }
-}
+

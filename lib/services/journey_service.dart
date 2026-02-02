@@ -1,5 +1,6 @@
 /// Journey API Service
 /// Handles user journey progress tracking API calls
+library journey_service;
 
 import 'package:global_trust_hub/core/api/api_client.dart';
 import 'package:global_trust_hub/core/api/api_config.dart';

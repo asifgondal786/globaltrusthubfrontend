@@ -1,5 +1,6 @@
 /// Reviews API Service
 /// Handles all review and rating related API calls
+library reviews_service;
 
 import 'package:global_trust_hub/core/api/api_client.dart';
 import 'package:global_trust_hub/core/api/api_config.dart';
@@ -134,7 +135,7 @@ class ReviewsListResponse {
       page: json['page'] ?? 1,
       perPage: json['per_page'] ?? 20,
       averageRating: (json['average_rating'] ?? 0).toDouble(),
-      ratingDistribution: Map<String, int>.from(json['rating_distribution'] ?? {}),
+      ratingDistribution: Map<String, int>.from(json['rating_distribution'] as Map<String, dynamic>? ?? {}),
     );
   }
 }
@@ -168,17 +169,17 @@ class ReviewResponse {
 
   factory ReviewResponse.fromJson(Map<String, dynamic> json) {
     return ReviewResponse(
-      id: json['id'] ?? '',
-      reviewerId: json['reviewer_id'] ?? '',
-      targetId: json['target_id'] ?? '',
-      targetType: json['target_type'] ?? '',
-      rating: json['rating'] ?? 0,
-      title: json['title'] ?? '',
-      content: json['content'] ?? '',
-      isVerifiedTransaction: json['is_verified_transaction'] ?? false,
-      status: json['status'] ?? 'pending',
-      helpfulCount: json['helpful_count'] ?? 0,
-      createdAt: json['created_at'] ?? '',
+      id: json['id'] as String? ?? '',
+      reviewerId: json['reviewer_id'] as String? ?? '',
+      targetId: json['target_id'] as String? ?? '',
+      targetType: json['target_type'] as String? ?? '',
+      rating: json['rating'] as int? ?? 0,
+      title: json['title'] as String? ?? '',
+      content: json['content'] as String? ?? '',
+      isVerifiedTransaction: json['is_verified_transaction'] as bool? ?? false,
+      status: json['status'] as String? ?? 'pending',
+      helpfulCount: json['helpful_count'] as int? ?? 0,
+      createdAt: json['created_at'] as String? ?? '',
     );
   }
 }

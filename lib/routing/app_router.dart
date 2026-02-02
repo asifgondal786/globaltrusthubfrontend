@@ -24,6 +24,7 @@ import 'package:global_trust_hub/modules/authentication/signup_forms/service_pro
 import 'package:global_trust_hub/modules/authentication/verification_status_screen.dart';
 import 'package:global_trust_hub/features/news/news_screen.dart';
 import 'package:global_trust_hub/features/payments/payment_methods_screen.dart';
+import 'package:global_trust_hub/features/public_review/public_review_screen.dart';
 
 // Placeholder widgets for routes that don't exist yet
 class PlaceholderScreen extends StatelessWidget {
@@ -75,7 +76,9 @@ final GoRouter appRouter = GoRouter(
       '/register/job-seeker',
       '/register/agent',
       '/register/service-provider',
+
       '/verification-status',
+      '/public-review',
     ];
     
     // Check if current route is public
@@ -224,6 +227,11 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/verification-status',
       builder: (context, state) => const VerificationStatusScreen(),
+    ),
+    GoRoute(
+      path: '/public-review',
+      name: RouteNames.publicReview,
+      builder: (context, state) => const PublicReviewScreen(),
     ),
   ],
 );

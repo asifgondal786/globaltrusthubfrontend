@@ -1,5 +1,6 @@
 /// Services API Service
 /// Handles all service provider related API calls
+library services_service;
 
 import 'package:global_trust_hub/core/api/api_client.dart';
 import 'package:global_trust_hub/core/api/api_config.dart';
@@ -137,7 +138,7 @@ class ServicesListResponse {
           .toList(),
       total: json['total'] ?? 0,
       page: json['page'] ?? 1,
-      filtersApplied: json['filters_applied'],
+      filtersApplied: json['filters_applied'] as Map<String, dynamic>?,
     );
   }
 }
@@ -190,15 +191,15 @@ class ServiceDetail extends ServiceItem {
 
   factory ServiceDetail.fromJson(Map<String, dynamic> json) {
     return ServiceDetail(
-      id: json['id'] ?? '',
-      name: json['name'] ?? '',
-      category: json['category'] ?? '',
-      trustScore: json['trust_score'] ?? 0,
-      rating: (json['rating'] ?? 0).toDouble(),
-      reviewsCount: json['reviews_count'] ?? 0,
-      description: json['description'],
-      country: json['country'],
-      isVerified: json['is_verified'] ?? false,
+      id: json['id'] as String? ?? '',
+      name: json['name'] as String? ?? '',
+      category: json['category'] as String? ?? '',
+      trustScore: json['trust_score'] as int? ?? 0,
+      rating: (json['rating'] as num? ?? 0).toDouble(),
+      reviewsCount: json['reviews_count'] as int? ?? 0,
+      description: json['description'] as String?,
+      country: json['country'] as String?,
+      isVerified: json['is_verified'] as bool? ?? false,
     );
   }
 }
@@ -218,11 +219,11 @@ class FeaturedServicesResponse {
 
   factory FeaturedServicesResponse.fromJson(Map<String, dynamic> json) {
     return FeaturedServicesResponse(
-      agentOfMonth: json['agent_of_month'],
-      universityOfMonth: json['university_of_month'],
-      employerOfMonth: json['employer_of_month'],
+      agentOfMonth: json['agent_of_month'] as Map<String, dynamic>?,
+      universityOfMonth: json['university_of_month'] as Map<String, dynamic>?,
+      employerOfMonth: json['employer_of_month'] as Map<String, dynamic>?,
       featuredProviders: (json['featured_providers'] as List? ?? [])
-          .map((s) => ServiceItem.fromJson(s))
+          .map((s) => ServiceItem.fromJson(s as Map<String, dynamic>))
           .toList(),
     );
   }
@@ -236,7 +237,7 @@ class CategoriesResponse {
   factory CategoriesResponse.fromJson(Map<String, dynamic> json) {
     return CategoriesResponse(
       categories: (json['categories'] as List? ?? [])
-          .map((c) => ServiceCategory.fromJson(c))
+          .map((c) => ServiceCategory.fromJson(c as Map<String, dynamic>))
           .toList(),
     );
   }
@@ -255,9 +256,9 @@ class ServiceCategory {
 
   factory ServiceCategory.fromJson(Map<String, dynamic> json) {
     return ServiceCategory(
-      id: json['id'] ?? '',
-      name: json['name'] ?? '',
-      count: json['count'] ?? 0,
+      id: json['id'] as String? ?? '',
+      name: json['name'] as String? ?? '',
+      count: json['count'] as int? ?? 0,
     );
   }
 }

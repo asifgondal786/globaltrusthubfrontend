@@ -100,7 +100,7 @@ class CustomInput extends StatelessWidget {
             prefixIcon: prefixIcon != null
                 ? Icon(
                     prefixIcon,
-                    color: enabled ? AppColors.primary.withOpacity(0.7) : Colors.grey[400],
+                    color: enabled ? AppColors.primary.withValues(alpha: 0.7) : Colors.grey[400],
                     size: 20,
                   )
                 : null,
@@ -130,7 +130,7 @@ class CustomInput extends StatelessWidget {
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
-              borderSide: BorderSide(color: AppColors.primary, width: 2),
+              borderSide: const BorderSide(color: AppColors.primary, width: 2),
             ),
             errorBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),

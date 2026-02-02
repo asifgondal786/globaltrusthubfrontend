@@ -198,7 +198,7 @@ class _JobSeekerSignupFormState extends State<JobSeekerSignupForm> {
             margin: const EdgeInsets.only(right: 16),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: Colors.blue.withOpacity(0.1),
+              color: Colors.blue.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
@@ -232,12 +232,12 @@ class _JobSeekerSignupFormState extends State<JobSeekerSignupForm> {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      Colors.blue.withOpacity(0.1),
-                      Colors.indigo.withOpacity(0.05),
+                      Colors.blue.withValues(alpha: 0.1),
+                      Colors.indigo.withValues(alpha: 0.05),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.blue.withOpacity(0.2)),
+                  border: Border.all(color: Colors.blue.withValues(alpha: 0.2)),
                 ),
                 child: Row(
                   children: [
@@ -499,7 +499,7 @@ class _JobSeekerSignupFormState extends State<JobSeekerSignupForm> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.blue.withOpacity(0.1),
+                  color: Colors.blue.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
@@ -529,7 +529,7 @@ class _JobSeekerSignupFormState extends State<JobSeekerSignupForm> {
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: Colors.blue.withOpacity(0.1),
+            color: Colors.blue.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(icon, size: 18, color: Colors.blue),

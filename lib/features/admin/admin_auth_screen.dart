@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:global_trust_hub/core/constants/colors.dart';
 
 class AdminAuthScreen extends StatefulWidget {
   const AdminAuthScreen({super.key});
@@ -88,7 +87,7 @@ class _AdminAuthScreenState extends State<AdminAuthScreen> {
                   Container(
                     padding: const EdgeInsets.all(24),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.1),
+                      color: Colors.white.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                       border: Border.all(color: Colors.white24, width: 2),
                     ),
@@ -123,7 +122,7 @@ class _AdminAuthScreenState extends State<AdminAuthScreen> {
                   Container(
                     padding: const EdgeInsets.all(32),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.95),
+                      color: Colors.white.withValues(alpha: 0.95),
                       borderRadius: BorderRadius.circular(24),
                       boxShadow: const [
                         BoxShadow(
@@ -255,9 +254,9 @@ class _AdminAuthScreenState extends State<AdminAuthScreen> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: Colors.amber.withOpacity(0.1),
+                      color: Colors.amber.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.amber.withOpacity(0.3)),
+                      border: Border.all(color: Colors.amber.withValues(alpha: 0.3)),
                     ),
                     child: Row(
                       children: [
@@ -267,7 +266,7 @@ class _AdminAuthScreenState extends State<AdminAuthScreen> {
                           child: Text(
                             'This area is restricted to authorized administrators only.',
                             style: TextStyle(
-                              color: Colors.white.withOpacity(0.8),
+                              color: Colors.white.withValues(alpha: 0.8),
                               fontSize: 12,
                             ),
                           ),

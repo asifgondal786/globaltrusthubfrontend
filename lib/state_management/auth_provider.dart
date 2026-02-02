@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:global_trust_hub/services/auth_service.dart';
 import 'package:global_trust_hub/core/api/api_exceptions.dart';
-import 'package:global_trust_hub/core/storage/secure_storage.dart';
 
 enum AuthStatus {
   initial,
@@ -13,7 +12,7 @@ enum AuthStatus {
 
 class AuthProvider extends ChangeNotifier {
   final AuthService _authService = AuthService();
-  final SecureStorageService _storage = SecureStorageService();
+  // SecureStorageService is accessed via AuthService
   
   AuthStatus _status = AuthStatus.initial;
   String? _errorMessage;

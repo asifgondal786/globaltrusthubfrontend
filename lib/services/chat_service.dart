@@ -1,5 +1,6 @@
 /// Chat API Service
 /// Handles all messaging and chat room related API calls
+library chat_service;
 
 import 'package:global_trust_hub/core/api/api_client.dart';
 import 'package:global_trust_hub/core/api/api_config.dart';

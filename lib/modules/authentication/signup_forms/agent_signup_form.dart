@@ -189,13 +189,13 @@ class _AgentSignupFormState extends State<AgentSignupForm> {
             margin: const EdgeInsets.only(right: 16),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: AppColors.secondary.withOpacity(0.2),
+              color: AppColors.secondary.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.verified, size: 16, color: AppColors.secondary),
+                const Icon(Icons.verified, size: 16, color: AppColors.secondary),
                 const SizedBox(width: 4),
                 Text(
                   '\$10/month',
@@ -219,12 +219,12 @@ class _AgentSignupFormState extends State<AgentSignupForm> {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      AppColors.secondary.withOpacity(0.15),
-                      Colors.amber.withOpacity(0.1),
+                      AppColors.secondary.withValues(alpha: 0.15),
+                      Colors.amber.withValues(alpha: 0.1),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: AppColors.secondary.withOpacity(0.3)),
+                  border: Border.all(color: AppColors.secondary.withValues(alpha: 0.3)),
                 ),
                 child: Row(
                   children: [
@@ -234,10 +234,10 @@ class _AgentSignupFormState extends State<AgentSignupForm> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(12),
                         boxShadow: [
-                          BoxShadow(color: AppColors.secondary.withOpacity(0.2), blurRadius: 8, spreadRadius: 1),
+                          BoxShadow(color: AppColors.secondary.withValues(alpha: 0.2), blurRadius: 8, spreadRadius: 1),
                         ],
                       ),
-                      child: Icon(Icons.support_agent, color: AppColors.secondary, size: 32),
+                      child: const Icon(Icons.support_agent, color: AppColors.secondary, size: 32),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
@@ -251,7 +251,7 @@ class _AgentSignupFormState extends State<AgentSignupForm> {
                                 style: GoogleFonts.inter(fontSize: 18, fontWeight: FontWeight.bold, color: AppColors.textPrimary),
                               ),
                               const SizedBox(width: 8),
-                              Icon(Icons.verified, size: 20, color: AppColors.secondary),
+                              const Icon(Icons.verified, size: 20, color: AppColors.secondary),
                             ],
                           ),
                           const SizedBox(height: 4),
@@ -512,7 +512,7 @@ class _AgentSignupFormState extends State<AgentSignupForm> {
                         }
                       });
                     },
-                    selectedColor: AppColors.secondary.withOpacity(0.2),
+                    selectedColor: AppColors.secondary.withValues(alpha: 0.2),
                     checkmarkColor: AppColors.secondary,
                     labelStyle: TextStyle(
                       color: isSelected ? AppColors.secondary : Colors.grey[700],
@@ -535,7 +535,7 @@ class _AgentSignupFormState extends State<AgentSignupForm> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.orange.withOpacity(0.1),
+                  color: Colors.orange.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                   border: Border.all(color: Colors.orange.shade200),
                 ),
@@ -566,7 +566,7 @@ class _AgentSignupFormState extends State<AgentSignupForm> {
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: AppColors.secondary.withOpacity(0.1),
+            color: AppColors.secondary.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(icon, size: 18, color: AppColors.secondary),

@@ -8,4 +8,5 @@ class RouteNames {
   static const String journey = 'journey';
   static const String chat = 'chat';
   static const String services = 'services';
+  static const String publicReview = 'public-review';
 }

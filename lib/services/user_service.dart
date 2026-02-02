@@ -1,5 +1,6 @@
 /// User Service
 /// Handles all user-related API calls
+library user_service;
 
 import 'package:global_trust_hub/core/api/api_client.dart';
 import 'package:global_trust_hub/core/api/api_config.dart';
@@ -115,23 +116,23 @@ class UserProfile {
 
   factory UserProfile.fromJson(Map<String, dynamic> json) {
     return UserProfile(
-      id: json['id'] ?? '',
-      email: json['email'] ?? '',
-      fullName: json['full_name'] ?? '',
-      displayName: json['display_name'],
-      phone: json['phone'],
-      bio: json['bio'],
-      avatarUrl: json['avatar_url'],
-      role: json['role'] ?? 'student',
-      isVerified: json['is_verified'] ?? false,
-      verificationStatus: json['verification_status'] ?? 'unverified',
-      trustScore: (json['trust_score'] ?? 0).toDouble(),
-      isActive: json['is_active'] ?? true,
+      id: json['id'] as String? ?? '',
+      email: json['email'] as String? ?? '',
+      fullName: json['full_name'] as String? ?? '',
+      displayName: json['display_name'] as String?,
+      phone: json['phone'] as String?,
+      bio: json['bio'] as String?,
+      avatarUrl: json['avatar_url'] as String?,
+      role: json['role'] as String? ?? 'student',
+      isVerified: json['is_verified'] as bool? ?? false,
+      verificationStatus: json['verification_status'] as String? ?? 'unverified',
+      trustScore: (json['trust_score'] as num? ?? 0).toDouble(),
+      isActive: json['is_active'] as bool? ?? true,
       createdAt: json['created_at'] != null 
-          ? DateTime.parse(json['created_at']) 
+          ? DateTime.parse(json['created_at'] as String) 
           : DateTime.now(),
       lastLogin: json['last_login'] != null 
-          ? DateTime.parse(json['last_login']) 
+          ? DateTime.parse(json['last_login'] as String) 
           : null,
     );
   }

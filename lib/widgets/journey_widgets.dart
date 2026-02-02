@@ -31,11 +31,6 @@ class JourneyProgressWidget extends StatelessWidget {
                 // Determine styling based on status
                 final isCompleted = milestone.isComplete;
                 final isCurrent = milestone.isInProgress;
-                final isPending = !isCompleted && !isCurrent;
-                
-                // Color logic: Completed/Current = Blue/Accent, Pending = Grey/Red if specified
-                // Using primary color for active states
-                final color = (isCompleted || isCurrent) ? AppColors.primary : AppColors.divider;
                 
                 return Expanded(
                   child: Column(

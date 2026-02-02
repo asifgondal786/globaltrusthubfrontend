@@ -72,7 +72,7 @@ class _LoginScreenState extends State<LoginScreen> {
               Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.1),
+                  color: AppColors.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: const Icon(Icons.person_add, color: AppColors.primary),
@@ -138,7 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     const SizedBox(height: 16),
                     // User Type Dropdown
                     DropdownButtonFormField<String>(
-                      value: selectedUserType,
+                      initialValue: selectedUserType,
                       decoration: InputDecoration(
                         labelText: 'I am a...',
                         prefixIcon: const Icon(Icons.category_outlined),
@@ -553,7 +553,7 @@ class _HoverAnimatedButtonState extends State<_HoverAnimatedButton> with SingleT
             padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
             decoration: BoxDecoration(
               color: _isHovered 
-                  ? widget.backgroundColor.withOpacity(0.9) 
+                  ? widget.backgroundColor.withValues(alpha: 0.9) 
                   : widget.backgroundColor,
               borderRadius: BorderRadius.circular(12),
               border: widget.borderColor != null 
@@ -562,7 +562,7 @@ class _HoverAnimatedButtonState extends State<_HoverAnimatedButton> with SingleT
               boxShadow: _isHovered
                   ? [
                       BoxShadow(
-                        color: widget.backgroundColor.withOpacity(0.3),
+                        color: widget.backgroundColor.withValues(alpha: 0.3),
                         blurRadius: 12,
                         offset: const Offset(0, 4),
                       ),

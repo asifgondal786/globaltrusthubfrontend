@@ -11,7 +11,7 @@ class JobProvider extends ChangeNotifier {
   List<Job> _jobs = [];
   int _total = 0;
   int _page = 1;
-  int _pageSize = 20;
+  final int _pageSize = 20;
   
   // Filter state
   String? _selectedCategory;

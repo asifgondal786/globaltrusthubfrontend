@@ -1,5 +1,6 @@
 /// API Client
 /// HTTP client with interceptors for auth, logging, and error handling
+library api_client;
 
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
@@ -21,7 +22,7 @@ class ApiClient {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
-    ));
+    ),);
 
     _setupInterceptors();
   }
@@ -77,7 +78,7 @@ class ApiClient {
         
         handler.next(error);
       },
-    ));
+    ),);
   }
 
   Future<bool> _refreshToken() async {
@@ -91,7 +92,8 @@ class ApiClient {
       );
 
       if (response.statusCode == 200) {
-        final newAccessToken = response.data['access_token'];
+        final data = response.data as Map<String, dynamic>;
+        final newAccessToken = data['access_token'] as String;
         await _storage.saveAccessToken(newAccessToken);
         return true;
       }
@@ -181,8 +183,9 @@ class ApiClient {
       
       case DioExceptionType.badResponse:
         final statusCode = error.response?.statusCode;
-        final message = error.response?.data?['detail'] ?? 
-                       error.response?.data?['message'] ??
+        final responseData = error.response?.data as Map<String, dynamic>?;
+        final message = responseData?['detail'] as String? ?? 
+                       responseData?['message'] as String? ??
                        'Request failed';
         
         switch (statusCode) {

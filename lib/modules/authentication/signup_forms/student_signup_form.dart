@@ -219,7 +219,7 @@ class _StudentSignupFormState extends State<StudentSignupForm> {
             margin: const EdgeInsets.only(right: 16),
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
             decoration: BoxDecoration(
-              color: Colors.green.withOpacity(0.1),
+              color: Colors.green.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Row(
@@ -253,13 +253,13 @@ class _StudentSignupFormState extends State<StudentSignupForm> {
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
                     colors: [
-                      AppColors.primary.withOpacity(0.1),
-                      AppColors.secondary.withOpacity(0.05),
+                      AppColors.primary.withValues(alpha: 0.1),
+                      AppColors.secondary.withValues(alpha: 0.05),
                     ],
                   ),
                   borderRadius: BorderRadius.circular(16),
                   border: Border.all(
-                    color: AppColors.primary.withOpacity(0.2),
+                    color: AppColors.primary.withValues(alpha: 0.2),
                   ),
                 ),
                 child: Row(
@@ -270,7 +270,7 @@ class _StudentSignupFormState extends State<StudentSignupForm> {
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Icon(
+                      child: const Icon(
                         Icons.school_outlined,
                         color: AppColors.primary,
                         size: 32,
@@ -562,7 +562,7 @@ class _StudentSignupFormState extends State<StudentSignupForm> {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.1),
+                  color: AppColors.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Row(
@@ -595,7 +595,7 @@ class _StudentSignupFormState extends State<StudentSignupForm> {
         Container(
           padding: const EdgeInsets.all(8),
           decoration: BoxDecoration(
-            color: AppColors.primary.withOpacity(0.1),
+            color: AppColors.primary.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Icon(icon, size: 18, color: AppColors.primary),
@@ -660,7 +660,7 @@ class _StudentSignupFormState extends State<StudentSignupForm> {
               items: items.map((item) => DropdownMenuItem(
                 value: item,
                 child: Text(item),
-              )).toList(),
+              ),).toList(),
               onChanged: onChanged,
             ),
           ),

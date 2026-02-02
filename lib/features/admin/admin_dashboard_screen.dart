@@ -62,7 +62,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
             Container(
               padding: const EdgeInsets.all(8),
               decoration: BoxDecoration(
-                color: Colors.white.withOpacity(0.1),
+                color: Colors.white.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: const Icon(Icons.admin_panel_settings, size: 24),
@@ -233,7 +233,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
       decoration: BoxDecoration(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(20),
       ),
       child: Text(label, style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w500)),
@@ -250,12 +250,12 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 8)],
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 8)],
       ),
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: Colors.purple.withOpacity(0.1),
+            backgroundColor: Colors.purple.withValues(alpha: 0.1),
             child: Text(user['name'][0], style: const TextStyle(color: Colors.purple, fontWeight: FontWeight.bold)),
           ),
           const SizedBox(width: 12),
@@ -271,7 +271,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
                     Container(
                       padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
                       decoration: BoxDecoration(
-                        color: Colors.blue.withOpacity(0.1),
+                        color: Colors.blue.withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: Text(user['role'], style: const TextStyle(fontSize: 10, color: Colors.blue)),
@@ -286,7 +286,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
-              color: statusColor.withOpacity(0.1),
+              color: statusColor.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(20),
             ),
             child: Text(user['status'], style: TextStyle(fontSize: 11, color: statusColor, fontWeight: FontWeight.w500)),
@@ -354,7 +354,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
               TextField(controller: emailController, decoration: const InputDecoration(labelText: 'Email', prefixIcon: Icon(Icons.email))),
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(
-                value: selectedRole,
+                initialValue: selectedRole,
                 decoration: const InputDecoration(labelText: 'Role'),
                 items: ['Student', 'Service Provider', 'Admin']
                     .map((r) => DropdownMenuItem(value: r, child: Text(r)))
@@ -445,7 +445,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 8)],
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 8)],
       ),
       child: Row(
         children: [
@@ -453,7 +453,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              color: AppColors.primary.withOpacity(0.1),
+              color: AppColors.primary.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(10),
             ),
             child: Center(child: Text('#${uni['ranking']}', style: AppTypography.labelLarge.copyWith(color: AppColors.primary))),
@@ -463,7 +463,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(uni['name'], style: AppTypography.labelLarge),
+                Text(uni['name'] as String, style: AppTypography.labelLarge),
                 Text('${uni['country']} • ${uni['programs']} Programs', style: AppTypography.caption.copyWith(color: AppColors.textSecondary)),
               ],
             ),
@@ -471,12 +471,12 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
-              color: uni['status'] == 'Verified' ? Colors.green.withOpacity(0.1) : Colors.orange.withOpacity(0.1),
+              color: uni['status'] == 'Verified' ? Colors.green.withValues(alpha: 0.1) : Colors.orange.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(20),
             ),
-            child: Text(uni['status'], style: AppTypography.caption.copyWith(
+            child: Text(uni['status'] as String, style: AppTypography.caption.copyWith(
               color: uni['status'] == 'Verified' ? Colors.green : Colors.orange,
-            )),
+            ),),
           ),
           PopupMenuButton(
             icon: const Icon(Icons.more_vert),
@@ -553,7 +553,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 8)],
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 8)],
       ),
       child: Row(
         children: [
@@ -561,7 +561,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              color: Colors.green.withOpacity(0.1),
+              color: Colors.green.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(10),
             ),
             child: const Icon(Icons.business, color: Colors.green),
@@ -571,7 +571,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(provider['name'], style: AppTypography.labelLarge),
+                Text(provider['name'] as String, style: AppTypography.labelLarge),
                 Text('${provider['type']} • ${provider['clients']} Clients', style: AppTypography.caption.copyWith(color: AppColors.textSecondary)),
                 const SizedBox(height: 4),
                 Row(
@@ -587,12 +587,12 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
-              color: provider['status'] == 'Verified' ? Colors.green.withOpacity(0.1) : Colors.orange.withOpacity(0.1),
+              color: provider['status'] == 'Verified' ? Colors.green.withValues(alpha: 0.1) : Colors.orange.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(20),
             ),
-            child: Text(provider['status'], style: AppTypography.caption.copyWith(
+            child: Text(provider['status'] as String, style: AppTypography.caption.copyWith(
               color: provider['status'] == 'Verified' ? Colors.green : Colors.orange,
-            )),
+            ),),
           ),
           PopupMenuButton(
             icon: const Icon(Icons.more_vert),
@@ -669,7 +669,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(12),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 8)],
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 8)],
       ),
       child: Row(
         children: [
@@ -677,7 +677,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
             width: 50,
             height: 50,
             decoration: BoxDecoration(
-              color: Colors.orange.withOpacity(0.1),
+              color: Colors.orange.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(10),
             ),
             child: const Icon(Icons.work, color: Colors.orange),
@@ -687,7 +687,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(job['title'], style: AppTypography.labelLarge),
+                Text(job['title'] as String, style: AppTypography.labelLarge),
                 Text('${job['company']} • ${job['location']}', style: AppTypography.caption.copyWith(color: AppColors.textSecondary)),
                 const SizedBox(height: 4),
                 Text('${job['applications']} Applications', style: AppTypography.caption.copyWith(color: AppColors.primary)),
@@ -697,10 +697,10 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
             decoration: BoxDecoration(
-              color: Colors.green.withOpacity(0.1),
+              color: Colors.green.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(20),
             ),
-            child: Text(job['status'], style: AppTypography.caption.copyWith(color: Colors.green)),
+            child: Text(job['status'] as String, style: AppTypography.caption.copyWith(color: Colors.green)),
           ),
           PopupMenuButton(
             icon: const Icon(Icons.more_vert),
@@ -750,7 +750,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(16),
-        boxShadow: [BoxShadow(color: Colors.black.withOpacity(0.05), blurRadius: 8)],
+        boxShadow: [BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 8)],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -882,7 +882,7 @@ class _AdminDashboardScreenState extends State<AdminDashboardScreen> with Single
               TextField(controller: nameController, decoration: const InputDecoration(labelText: 'Provider Name')),
               const SizedBox(height: 12),
               DropdownButtonFormField<String>(
-                value: selectedType,
+                initialValue: selectedType,
                 decoration: const InputDecoration(labelText: 'Type'),
                 items: ['Education Agent', 'Visa Consultant', 'Housing Agent', 'Job Recruiter', 'Financial Advisor']
                     .map((t) => DropdownMenuItem(value: t, child: Text(t)))

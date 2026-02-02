@@ -52,7 +52,7 @@ class JourneyProvider extends ChangeNotifier {
         'description': m.description,
         'completed': m.isCompleted,
         'icon': m.icon ?? 'check_circle',
-      }).toList();
+      },).toList();
       
       _status = JourneyStatus.loaded;
     } catch (e) {

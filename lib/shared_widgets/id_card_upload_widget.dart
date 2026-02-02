@@ -82,7 +82,7 @@ class _IdCardUploadWidgetState extends State<IdCardUploadWidget> {
       backImage: _backImage,
       frontFileName: _frontFileName,
       backFileName: _backFileName,
-    ));
+    ),);
   }
 
   void _removeImage(bool isFront) {
@@ -158,7 +158,7 @@ class _IdCardUploadWidgetState extends State<IdCardUploadWidget> {
         if (_frontImage != null && _backImage != null)
           Row(
             children: [
-              Icon(Icons.check_circle, size: 16, color: AppColors.success),
+              const Icon(Icons.check_circle, size: 16, color: AppColors.success),
               const SizedBox(width: 6),
               Text(
                 'Both sides uploaded successfully',
@@ -203,13 +203,13 @@ class _IdCardUploadWidgetState extends State<IdCardUploadWidget> {
         borderRadius: BorderRadius.circular(12),
         border: Border.all(
           color: image != null
-              ? AppColors.success.withOpacity(0.5)
+              ? AppColors.success.withValues(alpha: 0.5)
               : Colors.grey.shade300,
           width: image != null ? 2 : 1,
         ),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -233,10 +233,10 @@ class _IdCardUploadWidgetState extends State<IdCardUploadWidget> {
             Container(
               padding: const EdgeInsets.all(12),
               decoration: BoxDecoration(
-                color: AppColors.primary.withOpacity(0.1),
+                color: AppColors.primary.withValues(alpha: 0.1),
                 shape: BoxShape.circle,
               ),
-              child: Icon(
+              child: const Icon(
                 Icons.add_a_photo_outlined,
                 color: AppColors.primary,
                 size: 28,
@@ -291,7 +291,7 @@ class _IdCardUploadWidgetState extends State<IdCardUploadWidget> {
               padding: const EdgeInsets.all(8),
               child: Row(
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.check_circle,
                     size: 14,
                     color: AppColors.success,
@@ -322,7 +322,7 @@ class _IdCardUploadWidgetState extends State<IdCardUploadWidget> {
             child: Container(
               padding: const EdgeInsets.all(4),
               decoration: BoxDecoration(
-                color: Colors.red.withOpacity(0.9),
+                color: Colors.red.withValues(alpha: 0.9),
                 shape: BoxShape.circle,
               ),
               child: const Icon(

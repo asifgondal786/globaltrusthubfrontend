@@ -76,7 +76,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final unreadCount = _notifications.where((n) => n['isRead'] == false).length;
+    final unreadCount = _notifications.where((n) => (n['isRead'] as bool) == false).length;
 
     return Scaffold(
       backgroundColor: const Color(0xFFF5F7FA),
@@ -159,7 +159,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     final isRead = notification['isRead'] as bool;
 
     return Dismissible(
-      key: Key(notification['id']),
+      key: Key(notification['id'] as String),
       background: Container(
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 20),
@@ -180,10 +180,10 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(12),
-          border: isRead ? null : Border.all(color: AppColors.primary.withOpacity(0.3), width: 2),
+          border: isRead ? null : Border.all(color: AppColors.primary.withValues(alpha: 0.3), width: 2),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.05),
+              color: Colors.black.withValues(alpha: 0.05),
               blurRadius: 8,
               offset: const Offset(0, 2),
             ),
@@ -204,7 +204,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                     width: 48,
                     height: 48,
                     decoration: BoxDecoration(
-                      color: (notification['color'] as Color).withOpacity(0.1),
+                      color: (notification['color'] as Color).withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Icon(
@@ -221,7 +221,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                           children: [
                             Expanded(
                               child: Text(
-                                notification['title'],
+                                notification['title'] as String,
                                 style: AppTypography.labelLarge.copyWith(
                                   fontWeight: isRead ? FontWeight.normal : FontWeight.bold,
                                 ),
@@ -240,14 +240,14 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          notification['message'],
+                          notification['message'] as String,
                           style: AppTypography.bodySmall.copyWith(color: AppColors.textSecondary),
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          notification['time'],
+                          notification['time'] as String,
                           style: AppTypography.caption.copyWith(color: AppColors.textSecondary),
                         ),
                       ],

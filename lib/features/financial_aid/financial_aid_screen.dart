@@ -93,9 +93,9 @@ class FinancialAidScreen extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: color.withOpacity(0.1),
+          color: color.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(16),
-          border: Border.all(color: color.withOpacity(0.2)),
+          border: Border.all(color: color.withValues(alpha: 0.2)),
         ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -119,7 +119,7 @@ class FinancialAidScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.05),
+            color: Colors.black.withValues(alpha: 0.05),
             blurRadius: 10,
             offset: const Offset(0, 2),
           ),
@@ -131,7 +131,7 @@ class FinancialAidScreen extends StatelessWidget {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
             ),
             child: Icon(Icons.workspace_premium, color: color),
@@ -167,7 +167,7 @@ class FinancialAidScreen extends StatelessWidget {
             width: 48,
             height: 48,
             decoration: BoxDecoration(
-              color: Colors.blue.withOpacity(0.1),
+              color: Colors.blue.withValues(alpha: 0.1),
               borderRadius: BorderRadius.circular(12),
             ),
             child: const Icon(Icons.account_balance, color: Colors.blue),
@@ -214,7 +214,7 @@ class FinancialAidScreen extends StatelessWidget {
                   width: 48,
                   height: 48,
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.1),
+                    color: AppColors.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(12),
                   ),
                   child: Icon(icon, color: AppColors.primary),
@@ -330,7 +330,7 @@ class _BudgetCalculatorSheetState extends State<_BudgetCalculatorSheet> {
                   ),
                   const SizedBox(height: 8),
                   Text('Enter your estimated expenses to calculate your annual budget', 
-                    style: AppTypography.bodyMedium.copyWith(color: AppColors.textSecondary)),
+                    style: AppTypography.bodyMedium.copyWith(color: AppColors.textSecondary),),
                   const SizedBox(height: 24),
                   
                   _buildInputField('Tuition & Fees (Annual)', _tuitionController, Icons.school),
@@ -345,7 +345,7 @@ class _BudgetCalculatorSheetState extends State<_BudgetCalculatorSheet> {
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [AppColors.primary, AppColors.primary.withOpacity(0.8)],
+                        colors: [AppColors.primary, AppColors.primary.withValues(alpha: 0.8)],
                       ),
                       borderRadius: BorderRadius.circular(16),
                     ),
@@ -478,7 +478,7 @@ class _CostComparisonSheetState extends State<_CostComparisonSheet> {
                   Container(
                     padding: const EdgeInsets.all(16),
                     decoration: BoxDecoration(
-                      color: savings > 0 ? Colors.green.withOpacity(0.1) : Colors.orange.withOpacity(0.1),
+                      color: savings > 0 ? Colors.green.withValues(alpha: 0.1) : Colors.orange.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(color: savings > 0 ? Colors.green : Colors.orange),
                     ),
@@ -518,7 +518,7 @@ class _CostComparisonSheetState extends State<_CostComparisonSheet> {
           items: _countryCosts.keys.map((country) => DropdownMenuItem(
             value: country,
             child: Text(country),
-          )).toList(),
+          ),).toList(),
           onChanged: onChanged,
         ),
       ),
@@ -646,7 +646,7 @@ class _EMICalculatorSheetState extends State<_EMICalculatorSheet> {
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [AppColors.primary, AppColors.primary.withOpacity(0.8)],
+                        colors: [AppColors.primary, AppColors.primary.withValues(alpha: 0.8)],
                       ),
                       borderRadius: BorderRadius.circular(16),
                     ),

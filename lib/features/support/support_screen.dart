@@ -158,7 +158,7 @@ class _SupportScreenState extends State<SupportScreen> {
   Widget _buildQuickAction(IconData icon, String label, Color color, VoidCallback onTap) {
     return Expanded(
       child: Material(
-        color: color.withOpacity(0.1),
+        color: color.withValues(alpha: 0.1),
         borderRadius: BorderRadius.circular(12),
         child: InkWell(
           borderRadius: BorderRadius.circular(12),
@@ -215,7 +215,7 @@ class _SupportScreenState extends State<SupportScreen> {
                   width: 40,
                   height: 40,
                   decoration: BoxDecoration(
-                    color: AppColors.primary.withOpacity(0.1),
+                    color: AppColors.primary.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Icon(icon, color: AppColors.primary, size: 20),

@@ -297,7 +297,7 @@ class _NewsCard extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.all(14),
                           decoration: BoxDecoration(
-                            color: color.withOpacity(0.1),
+                            color: color.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Icon(icon, color: color, size: 28),
@@ -310,7 +310,7 @@ class _NewsCard extends StatelessWidget {
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                                 decoration: BoxDecoration(
-                                  color: color.withOpacity(0.1),
+                                  color: color.withValues(alpha: 0.1),
                                   borderRadius: BorderRadius.circular(4),
                                 ),
                                 child: Text(
@@ -441,7 +441,7 @@ class _NewsCard extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.1),
+                  color: color.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Icon(icon, color: color, size: 24),
@@ -485,7 +485,7 @@ class _NewsCard extends StatelessWidget {
                         Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
-                            color: color.withOpacity(0.1),
+                            color: color.withValues(alpha: 0.1),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           child: Text(

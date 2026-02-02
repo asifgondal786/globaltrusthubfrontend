@@ -141,7 +141,7 @@ class _ChatScreenState extends State<ChatScreen> {
               final isSelected = chat['id'] == _selectedChatId;
 
               return Container(
-                color: isSelected ? AppColors.primary.withOpacity(0.1) : Colors.white,
+                color: isSelected ? AppColors.primary.withValues(alpha: 0.1) : Colors.white,
                 child: ListTile(
                   onTap: () => setState(() => _selectedChatId = chat['id']),
                   leading: Stack(
@@ -294,7 +294,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     ),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.05),
+                        color: Colors.black.withValues(alpha: 0.05),
                         blurRadius: 5,
                         offset: const Offset(0, 2),
                       ),

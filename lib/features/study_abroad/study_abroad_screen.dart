@@ -142,7 +142,7 @@ class _StudyAbroadScreenState extends State<StudyAbroadScreen> with SingleTicker
             borderRadius: BorderRadius.circular(16),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withValues(alpha: 0.05),
                 blurRadius: 10,
                 offset: const Offset(0, 4),
               ),
@@ -162,7 +162,7 @@ class _StudyAbroadScreenState extends State<StudyAbroadScreen> with SingleTicker
                       width: 60,
                       height: 60,
                       decoration: BoxDecoration(
-                        color: (country['color'] as Color).withOpacity(0.1),
+                        color: (country['color'] as Color).withValues(alpha: 0.1),
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Center(
@@ -219,7 +219,7 @@ class _StudyAbroadScreenState extends State<StudyAbroadScreen> with SingleTicker
                 width: 48,
                 height: 48,
                 decoration: BoxDecoration(
-                  color: AppColors.primary.withOpacity(0.1),
+                  color: AppColors.primary.withValues(alpha: 0.1),
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Center(
@@ -256,7 +256,7 @@ class _StudyAbroadScreenState extends State<StudyAbroadScreen> with SingleTicker
           decoration: BoxDecoration(
             color: Colors.white,
             borderRadius: BorderRadius.circular(12),
-            border: Border.all(color: Colors.green.withOpacity(0.3)),
+            border: Border.all(color: Colors.green.withValues(alpha: 0.3)),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -276,7 +276,7 @@ class _StudyAbroadScreenState extends State<StudyAbroadScreen> with SingleTicker
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
-                      color: Colors.orange.withOpacity(0.1),
+                      color: Colors.orange.withValues(alpha: 0.1),
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text('Deadline: ${scholarship['deadline']}', style: AppTypography.caption.copyWith(color: Colors.orange)),

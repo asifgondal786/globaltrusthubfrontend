@@ -1,5 +1,6 @@
 /// Secure Storage Service
 /// Manages secure storage of tokens and sensitive data
+library secure_storage;
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 

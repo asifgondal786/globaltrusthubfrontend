@@ -148,7 +148,7 @@ class ChatProvider extends ChangeNotifier {
           participants: room.participants,
           lastMessage: message,
           createdAt: room.createdAt,
-        ));
+        ),);
       }
       
       notifyListeners();

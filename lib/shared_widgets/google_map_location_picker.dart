@@ -24,7 +24,7 @@ class GoogleMapLocationPicker extends StatefulWidget {
 
 class _GoogleMapLocationPickerState extends State<GoogleMapLocationPicker> {
   LocationData? _selectedLocation;
-  bool _isLoading = false;
+
   final TextEditingController _addressController = TextEditingController();
 
   @override
@@ -95,13 +95,13 @@ class _GoogleMapLocationPickerState extends State<GoogleMapLocationPicker> {
             borderRadius: BorderRadius.circular(12),
             border: Border.all(
               color: _selectedLocation != null
-                  ? AppColors.success.withOpacity(0.5)
+                  ? AppColors.success.withValues(alpha: 0.5)
                   : Colors.grey.shade300,
               width: _selectedLocation != null ? 2 : 1,
             ),
             boxShadow: [
               BoxShadow(
-                color: Colors.black.withOpacity(0.05),
+                color: Colors.black.withValues(alpha: 0.05),
                 blurRadius: 10,
                 offset: const Offset(0, 2),
               ),
@@ -144,7 +144,7 @@ class _GoogleMapLocationPickerState extends State<GoogleMapLocationPicker> {
                                       shape: BoxShape.circle,
                                       boxShadow: [
                                         BoxShadow(
-                                          color: AppColors.primary.withOpacity(0.3),
+                                          color: AppColors.primary.withValues(alpha: 0.3),
                                           blurRadius: 10,
                                           spreadRadius: 2,
                                         ),
@@ -167,7 +167,7 @@ class _GoogleMapLocationPickerState extends State<GoogleMapLocationPicker> {
                                       borderRadius: BorderRadius.circular(12),
                                       boxShadow: [
                                         BoxShadow(
-                                          color: Colors.black.withOpacity(0.1),
+                                          color: Colors.black.withValues(alpha: 0.1),
                                           blurRadius: 4,
                                         ),
                                       ],
@@ -234,7 +234,7 @@ class _GoogleMapLocationPickerState extends State<GoogleMapLocationPicker> {
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.location_on,
                             color: AppColors.primary,
                             size: 20,
@@ -258,7 +258,7 @@ class _GoogleMapLocationPickerState extends State<GoogleMapLocationPicker> {
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton.icon(
-                        onPressed: _isLoading ? null : _openMapPicker,
+                        onPressed: _openMapPicker,
                         icon: Icon(
                           _selectedLocation != null
                               ? Icons.edit_location_alt
@@ -282,7 +282,7 @@ class _GoogleMapLocationPickerState extends State<GoogleMapLocationPicker> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                             side: _selectedLocation != null
-                                ? BorderSide(color: AppColors.primary.withOpacity(0.3))
+                                ? BorderSide(color: AppColors.primary.withValues(alpha: 0.3))
                                 : BorderSide.none,
                           ),
                         ),
@@ -336,7 +336,7 @@ class _MapPickerDialogState extends State<_MapPickerDialog> {
   late double _latitude;
   late double _longitude;
   String _address = 'Drag marker to select location';
-  bool _isLoading = false;
+
   final TextEditingController _searchController = TextEditingController();
 
   // Default to Islamabad, Pakistan
@@ -372,7 +372,7 @@ class _MapPickerDialogState extends State<_MapPickerDialog> {
       latitude: _latitude,
       longitude: _longitude,
       formattedAddress: _address,
-    ));
+    ),);
   }
 
   @override
@@ -395,9 +395,9 @@ class _MapPickerDialogState extends State<_MapPickerDialog> {
             // Header
             Container(
               padding: const EdgeInsets.all(16),
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: AppColors.primary,
-                borderRadius: const BorderRadius.vertical(
+                borderRadius: BorderRadius.vertical(
                   top: Radius.circular(16),
                 ),
               ),
@@ -483,7 +483,7 @@ class _MapPickerDialogState extends State<_MapPickerDialog> {
               ),
               child: Row(
                 children: [
-                  Icon(Icons.place, color: AppColors.primary),
+                  const Icon(Icons.place, color: AppColors.primary),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Column(
@@ -628,7 +628,7 @@ class _InteractiveMapViewState extends State<_InteractiveMapView> {
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.red.withOpacity(0.4),
+                            color: Colors.red.withValues(alpha: 0.4),
                             blurRadius: 10,
                             spreadRadius: 2,
                           ),
@@ -649,7 +649,7 @@ class _InteractiveMapViewState extends State<_InteractiveMapView> {
                           end: Alignment.bottomCenter,
                           colors: [
                             Colors.red,
-                            Colors.red.withOpacity(0),
+                            Colors.red.withValues(alpha: 0),
                           ],
                         ),
                       ),
@@ -669,13 +669,13 @@ class _InteractiveMapViewState extends State<_InteractiveMapView> {
                     vertical: 8,
                   ),
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.9),
+                    color: Colors.white.withValues(alpha: 0.9),
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(
+                      const Icon(
                         Icons.touch_app,
                         size: 16,
                         color: AppColors.primary,
@@ -782,7 +782,7 @@ class _DetailedMapPainter extends CustomPainter {
 
     // Draw grid overlay
     final gridPaint = Paint()
-      ..color = Colors.grey.withOpacity(0.1)
+      ..color = Colors.grey.withValues(alpha: 0.1)
       ..strokeWidth = 0.5;
 
     const spacing = 30.0;

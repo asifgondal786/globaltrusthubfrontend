@@ -1,5 +1,6 @@
 /// API Exceptions
 /// Custom exception classes for API error handling
+library api_exceptions;
 
 class ApiException implements Exception {
   final String message;
